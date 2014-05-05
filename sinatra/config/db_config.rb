@@ -8,3 +8,7 @@ ActiveRecord::Base.establish_connection(
 	:database => 'group_purchase',
 	:encoding	=> 'utf8'
 )
+
+#ActiveRecord::Base.default_timezone = :beijing
+
+ActiveRecord::Base.default_timezone = :local

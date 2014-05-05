@@ -10,7 +10,17 @@ require './helpers/helper'
 setting = YAML::load(File.open('./config/en.yml'))
 
 get '/' do 
-	"hello world"
+#  user = User.create(
+ #                    :username => 'admin',
+ #                    :password => '123456',
+  #                   :tel => '15201615877')
+
+  user = User.last
+  if user 
+    user.destroy!
+  end
+  "#{Time.now}"
+  #{}"hello world"
 end
 
 
