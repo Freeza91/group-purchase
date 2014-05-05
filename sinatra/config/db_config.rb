@@ -5,6 +5,6 @@ ActiveRecord::Base.establish_connection(
   :host     => 'localhost',
   :username => 'root',
   :password => 'root',
-	:database => 'ceshi',
+	:database => 'group_purchase',
 	:encoding	=> 'utf8'
 )
