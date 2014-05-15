@@ -2,4 +2,3 @@
 
 require './main'
 require "sinatra/activerecord/rake"
-require 'thinking_sphinx/tasks'

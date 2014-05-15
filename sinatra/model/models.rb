@@ -1,8 +1,5 @@
 class User < ActiveRecord::Base
-  #attr_accessor :tel, :password, :username, :token
-
-
-
+  attr_accessor :tel, :password, :username, :token
 
    def to_json
     hash = {}
@@ -11,4 +8,5 @@ class User < ActiveRecord::Base
     end
     JSON.parse hash.to_json
   end
+
 end

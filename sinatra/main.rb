@@ -3,21 +3,19 @@
 require 'sinatra'
 require "sinatra/activerecord"
 require 'yaml'
+require 'json'
+require 'securerandom'
 require './model/models'
 require './config/db_config'
 require './helpers/helper'
-require 'json'
-require 'securerandom'
+
 
 setting = YAML::load(File.open('./config/en.yml'))
 
 get '/' do 
-  user = User.all
-  user.each do |u|
-    u.destroy!
-  end
-end
 
+
+end
 
 
 post '/users/create' do
