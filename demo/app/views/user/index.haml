@@ -1,0 +1,29 @@
+%ul.nav.nav-tabs
+  /%li.active=link_to tag_icon(:list, pat(:list)), url(:admins, :index)
+  /%li=link_to tag_icon(:plus, pat(:new)), url(:admins, :new)
+
+.tabs-content
+  %table#list.table.table-striped.table-hover.table-condensed
+    %thead
+      %tr
+        %th.header.list-menu
+          .dropdown
+            %a.list-menu-toggle.dropdown-toggle{:href => '#', :'data-toggle' => :dropdown}
+              =tag_icon :magic
+              %span.caret
+            %ul.list-menu.dropdown-menu{:role => :menu}
+              %li.list-menu-wrapper=link_to tag_icon(:check, pat(:select_all)), '#', :id => 'select-all', :class => 'list-menu-link'
+              %li.list-menu-wrapper.list-menu-wrapper-disabled
+                /=link_to tag_icon(:'check-empty', pat(:deselect_all)), '#', :id => 'deselect-all', :class => 'list-menu-link list-menu-link-disabled'
+              %li.list-menu-divider.divider
+              %li.list-menu-wrapper.list-menu-wrapper-disabled
+                /=link_to tag_icon(:trash, pat(:delete_selected)), '#', :id => 'delete-selected', :class => 'list-menu-link list-menu-link-disabled'
+                .list-menu-popover-delete-selected.popover.right
+                  .arrow
+                  /%h3.popover-title=pat(:delete_selected_title)
+        %th.header= mat(:admin, :id)
+        %th.header= mat(:admin, :name)
+        %th.header= mat(:admin, :surname)
+        %th.header= mat(:admin, :email)
+        %th.header.list-row-action-header
+
