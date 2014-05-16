@@ -1,0 +1,21 @@
+
+require 'nokogiri'
+require 'open-uri'
+
+doc = Nokogiri::HTML(open('./grade.html'))
+
+doc.css('input').each do |input|
+	if input['name'] == '__VIEWSTATE'
+		puts input['value']
+		break
+	end
+end
+=begin
+doc.css('tr').each do |tr|
+	td = tr.css('td')
+	if td.count == 9 and td[6].content.to_i > 0
+		puts td[3].content
+		puts td[1].content
+	end
+end
+=end

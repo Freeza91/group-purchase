@@ -1,0 +1,20 @@
+.tabs-content
+  = form_for :shopowner, url(:shopowner, :logining), :class => 'form-horizontal' do |f|
+    %fieldset.control-group
+      =f.text_field :tel, :class => 'form-control input-small input-with-feedback center-input', :autofocus => true, :placeholder => 'tel'
+      %p 
+
+    %fieldset.control-group
+      .controls
+        =f.text_field :password, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'password'
+        %p
+
+    .controls
+      %span.col-xs-2
+      =link_to "zhuce", url(:shopowner, :new), :class => 'btn btn-primary'
+      %span.col-xs-1
+      =f.submit "denglu", :class => 'btn btn-primary'
+:css
+  .center-input{
+    width: 40%
+  }

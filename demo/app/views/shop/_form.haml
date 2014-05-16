@@ -1,0 +1,37 @@
+%fieldset.control-group
+  =f.text_field :name, :class => 'form-control input-small input-with-feedback center-input', :autofocus => true, :placeholder => 'dianming', :value => @shop.name
+  %p 
+
+%fieldset.control-group
+  .controls
+    =f.text_field :address, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'dizhi', :value => @shop.address
+    %p
+    =f.text_field :address_code, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'jingweidu', :value => @shop.lon ? @shop.lon.to_s + ',' + @shop.lat.to_s : ""
+    %p
+      = link_to "keyi shiyong zhge ", url("http://api.map.baidu.com/lbsapi/getpoint/index.html"), :target => "_blank"
+
+%fieldset.control-group
+  .controls
+    =f.text_area :shop_tel, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'dianhua', :value => @shop.shop_tel
+    %p 
+
+  .controls
+    =f.select :category, :class => "col-xs-1 input-large input-with-feedback ", :placeholder => 'dianhua',:value => @shop.category,
+     :options => ["meishi", "huoguo"]
+    %span.col-xs-1
+    =file_field_tag "filename", :class => "col-xs-10 input-large input-with-feedback"
+    %p 
+    &nbsp
+
+  .controls
+    =f.text_area :profile, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'profile'
+    %p 
+
+.controls
+  %span.col-xs-4
+  =f.submit "submit", :class => 'btn btn-primary'
+
+:css
+  .center-input{
+    width: 40%
+  }

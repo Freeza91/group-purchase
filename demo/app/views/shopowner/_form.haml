@@ -1,0 +1,29 @@
+- error = @owner.errors.include?(:nickname)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.text_field :nickname, :class => 'form-control input-small input-with-feedback center-input', :autofocus => true, :placeholder => 'nickname', :value => @owner.nickname
+  %span.help-inline= f.error_message_on(:nickname, :class => 'text-error') 
+  %p 
+- error = @owner.errors.include?(:tel)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  .controls
+    =f.text_field :tel, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'tel', :value => @owner.tel
+    %span.help-inline= f.error_message_on(:surname, :class => 'text-error')
+    %p
+
+- error = @owner.errors.include?(:password)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  .controls
+    =f.password_field :password, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'password'
+    %span.help-inline= f.error_message_on(:password, :class => 'text-error')
+    %p 
+      = f.error_message_on(:password, :class => 'text-error')
+
+.controls
+  %span.col-xs-4
+  =f.submit "register", :class => 'btn btn-primary'
+
+
+:css
+  .center-input{
+    width: 40%
+  }

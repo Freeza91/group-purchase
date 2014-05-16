@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20140505134114) do
     t.integer  "integration"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
   end
 
   create_table "shopowners", force: true do |t|

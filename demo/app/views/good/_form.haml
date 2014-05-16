@@ -1,0 +1,34 @@
+%fieldset.control-group
+  =f.text_field :name, :class => 'form-control input-small input-with-feedback center-input', :autofocus => true, :placeholder => 'shangpingmingzi', :value => @good.name
+  %p 
+  .controls
+    =f.text_area :profile, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'profile',:value => @good.profile
+    %p
+
+  .controls
+    =f.text_field :price, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'price', :value => @good.price
+    %p
+
+  .controls
+    =f.text_field :integration, :class => "col-xs-1 input-large input-with-feedback ", :placeholder => 'jifen',:value => @good.integration
+    %span.col-xs-1
+    =file_field_tag "filename", :class => "col-xs-10 input-large input-with-feedback"
+    %p 
+    &nbsp
+
+  .controls
+    =f.text_area :service, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'fuwu', :value => @good.price
+    %p
+
+    =f.text_area :note, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'beizhu', :value => @good.note
+    %p
+
+.controls
+  %span.col-xs-4
+  =f.submit 'submit', :class => 'btn btn-primary'
+
+
+:css
+  .center-input{
+    width: 40%
+  }

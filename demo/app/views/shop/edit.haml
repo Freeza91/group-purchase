@@ -1,0 +1,4 @@
+.tabs-content
+  = form_for :shop, url(:shop, :update), :method => 'put', :class => 'form-horizontal', :multipart => true do |f|
+    =partial './form', :locals => { :f => f}
+

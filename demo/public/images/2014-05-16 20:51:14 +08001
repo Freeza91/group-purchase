@@ -1,0 +1,17 @@
+class Cla
+	attr_accessor :two, :one
+
+	@@one = '123'
+	
+	def initialize
+	end
+	
+	def self.getOne
+		@@one
+	end
+end
+
+c = Cla.new
+c.two = 4
+p c.two
+p Cla.one

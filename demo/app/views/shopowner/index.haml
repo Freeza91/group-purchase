@@ -1,0 +1,12 @@
+.tabs-content
+  %table.table.table-striped.table-hover.table-condensed
+    %h1.center huanlinglaidao
+    %tr
+      %td 
+        = link_to "Add Shop!!", url(:shop, :index), :class => "btn btn-infor"
+      %td
+        = link_to "Modify your infor", url(:shopowner, :edit, :id => @owner.id), :class => "btn btn-infor"
+
+
+        
+

@@ -6,6 +6,7 @@ module Demo
 
     enable :sessions
 
+
     ##
     # Caching support.
     #

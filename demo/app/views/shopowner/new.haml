@@ -1,0 +1,4 @@
+.tabs-content
+  = form_for :shopowner, url(:shopowner, :create), :class => 'form-horizontal' do |f|
+    =partial './form', :locals => { :f => f }
+

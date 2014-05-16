@@ -110,7 +110,15 @@ end
   # end
   
   get '/' do
-    render 'index'
+    @user = Good.all
+    reply = {}
+    i = 0
+    @user.each do |user|
+      reply[i] = JSON.parse(user.to_json)
+      i = i + 1
+      #reply = tanslate_good user
+    end
+    reply.to_json
   end
 
   get :index do 

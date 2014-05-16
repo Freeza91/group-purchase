@@ -1,0 +1,31 @@
+- error = @shopowner.errors.include?(:tel)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :tel, :class => 'control-label'
+  .controls
+    =f.text_field :tel, :class => 'form-control input-large input-with-feedback', :autofocus => true
+    %span.help-inline=error ? f.error_message_on(:tel, :class => 'text-error') : pat(:example)
+- error = @shopowner.errors.include?(:password)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :password, :class => 'control-label'
+  .controls
+    =f.text_field :password, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:password, :class => 'text-error') : pat(:example)
+- error = @shopowner.errors.include?(:nickname)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :nickname, :class => 'control-label'
+  .controls
+    =f.text_field :nickname, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:nickname, :class => 'text-error') : pat(:example)
+- error = @shopowner.errors.include?(:income)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :income, :class => 'control-label'
+  .controls
+    =f.text_field :income, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:income, :class => 'text-error') : pat(:example)
+
+.form-actions
+  =f.submit pat(:save), :class => 'btn btn-primary'
+  &nbsp;
+  =f.submit pat(:save_and_continue), :class => 'btn btn-info', :name => 'save_and_continue'
+  &nbsp;
+  =link_to pat(:cancel), url(:shopowners, :index), :class => 'btn btn-default'
