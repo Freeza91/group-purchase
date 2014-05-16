@@ -32,6 +32,21 @@ ActiveRecord::Schema.define(version: 20140505134114) do
     t.datetime "updated_at"
   end
 
+  create_table "shops", force: true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.integer  "shopowner_id"
+    t.decimal  "lat",          precision: 10, scale: 0
+    t.decimal  "lon",          precision: 10, scale: 0
+    t.string   "shop_tel"
+    t.integer  "rating"
+    t.string   "category"
+    t.string   "avatar"
+    t.string   "profile"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", force: true do |t|
     t.string   "username"
     t.string   "password"
