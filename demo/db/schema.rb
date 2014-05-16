@@ -23,6 +23,19 @@ ActiveRecord::Schema.define(version: 20140505134114) do
     t.datetime "updated_at"
   end
 
+  create_table "goods", force: true do |t|
+    t.integer  "shop_id"
+    t.decimal  "price",       precision: 10, scale: 0
+    t.string   "profile"
+    t.text     "note"
+    t.text     "service"
+    t.string   "avatar"
+    t.boolean  "status"
+    t.integer  "integration"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "shopowners", force: true do |t|
     t.string   "tel"
     t.string   "password"
