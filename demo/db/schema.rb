@@ -23,6 +23,15 @@ ActiveRecord::Schema.define(version: 20140505134114) do
     t.datetime "updated_at"
   end
 
+  create_table "comments", force: true do |t|
+    t.integer  "good_id"
+    t.integer  "user_id"
+    t.text     "content"
+    t.string   "writer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "goods", force: true do |t|
     t.integer  "shop_id"
     t.decimal  "price",       precision: 10, scale: 0
