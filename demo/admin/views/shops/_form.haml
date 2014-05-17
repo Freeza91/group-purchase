@@ -1,0 +1,67 @@
+- error = @shop.errors.include?(:name)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :name, :class => 'control-label'
+  .controls
+    =f.text_field :name, :class => 'form-control input-large input-with-feedback', :autofocus => true
+    %span.help-inline=error ? f.error_message_on(:name, :class => 'text-error') : pat(:example)
+- error = @shop.errors.include?(:address)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :address, :class => 'control-label'
+  .controls
+    =f.text_field :address, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:address, :class => 'text-error') : pat(:example)
+- error = @shop.errors.include?(:shopowner_id)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :shopowner_id, :class => 'control-label'
+  .controls
+    =f.text_field :shopowner_id, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:shopowner_id, :class => 'text-error') : pat(:example)
+- error = @shop.errors.include?(:lat)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :lat, :class => 'control-label'
+  .controls
+    =f.text_field :lat, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:lat, :class => 'text-error') : pat(:example)
+- error = @shop.errors.include?(:lon)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :lon, :class => 'control-label'
+  .controls
+    =f.text_field :lon, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:lon, :class => 'text-error') : pat(:example)
+- error = @shop.errors.include?(:shop_tel)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :shop_tel, :class => 'control-label'
+  .controls
+    =f.text_field :shop_tel, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:shop_tel, :class => 'text-error') : pat(:example)
+- error = @shop.errors.include?(:rating)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :rating, :class => 'control-label'
+  .controls
+    =f.text_field :rating, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:rating, :class => 'text-error') : pat(:example)
+- error = @shop.errors.include?(:category)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :category, :class => 'control-label'
+  .controls
+    =f.text_field :category, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:category, :class => 'text-error') : pat(:example)
+- error = @shop.errors.include?(:avatar)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :avatar, :class => 'control-label'
+  .controls
+    =f.text_field :avatar, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:avatar, :class => 'text-error') : pat(:example)
+- error = @shop.errors.include?(:profile)
+%fieldset.control-group{:class => error ? 'has-error' : ''}
+  =f.label :profile, :class => 'control-label'
+  .controls
+    =f.text_field :profile, :class => 'form-control input-large input-with-feedback'
+    %span.help-inline=error ? f.error_message_on(:profile, :class => 'text-error') : pat(:example)
+
+.form-actions
+  =f.submit pat(:save), :class => 'btn btn-primary'
+  &nbsp;
+  =f.submit pat(:save_and_continue), :class => 'btn btn-info', :name => 'save_and_continue'
+  &nbsp;
+  =link_to pat(:cancel), url(:shops, :index), :class => 'btn btn-default'

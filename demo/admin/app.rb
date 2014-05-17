@@ -33,6 +33,8 @@ module Demo
     end
 
     access_control.roles_for :admin do |role|
+      role.project_module :goods, '/goods'
+      role.project_module :shops, '/shops'
       role.project_module :shopowners, '/shopowners'
       role.project_module :admins, '/admins'
     end

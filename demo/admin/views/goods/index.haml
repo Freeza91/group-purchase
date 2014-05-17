@@ -1,0 +1,70 @@
+%ul.nav.nav-tabs
+  %li.active=link_to tag_icon(:list, pat(:list)), url(:goods, :index)
+  %li=link_to tag_icon(:plus, pat(:new)), url(:goods, :new)
+
+.tabs-content
+  %table#list.table.table-striped.table-hover.table-condensed
+    %thead
+      %tr
+        %th.header.list-menu
+          .dropdown
+            %a.list-menu-toggle.dropdown-toggle{:href => '#', :'data-toggle' => :dropdown}
+              =tag_icon :magic
+              %span.caret
+            %ul.list-menu.dropdown-menu{:role => :menu}
+              %li.list-menu-wrapper=link_to tag_icon(:check, pat(:select_all)), '#', :id => 'select-all', :class => 'list-menu-link'
+              %li.list-menu-wrapper.list-menu-wrapper-disabled
+                =link_to tag_icon(:'check-empty', pat(:deselect_all)), '#', :id => 'deselect-all', :class => 'list-menu-link list-menu-link-disabled'
+              %li.list-menu-divider.divider
+              %li.list-menu-wrapper.list-menu-wrapper-disabled
+                =link_to tag_icon(:trash, pat(:delete_selected)), '#', :id => 'delete-selected', :class => 'list-menu-link list-menu-link-disabled'
+                .list-menu-popover-delete-selected.popover.right
+                  .arrow
+                  %h3.popover-title=pat(:delete_selected_title)
+                  .popover-content
+                    = form_tag url(:goods, :destroy_many), :method => :delete do
+                      =hidden_field_tag :good_ids, :'data-delete-many-ids' => true
+                      =submit_tag pat(:delete), :class =>'list-menu-popover-delete-selected-btn btn btn-danger btn-small'
+                      .btn.btn-default.btn-small.cancel=pat(:cancel)
+        %th.header= mat(:good, :id)
+        %th.header= mat(:good, :shop_id)
+        %th.header= mat(:good, :price)
+        %th.header= mat(:good, :profile)
+        %th.header= mat(:good, :note)
+        %th.header= mat(:good, :service)
+        %th.header= mat(:good, :avatar)
+        %th.header= mat(:good, :status)
+        %th.header= mat(:good, :integration)
+        %th.header= mat(:good, :created_at)
+        %th.header= mat(:good, :updated_at)
+        %th.header= mat(:good, :name)
+        %th.header.list-row-action-header
+
+    %tbody
+      -@goods.each do |good|
+        %tr.list-row
+          %td.list-column.list-selectable
+            =check_box_tag 'good_ids[]', :value => good.id, :class => 'list-selectable-checkbox'
+          %td.list-column=good.id
+          %td.list-column=good.shop_id
+          %td.list-column=good.price
+          %td.list-column=good.profile
+          %td.list-column=good.note
+          %td.list-column=good.service
+          %td.list-column=good.avatar
+          %td.list-column= good.status ? tag_icon(:ok) : tag_icon(:remove)
+          %td.list-column=good.integration
+          %td.list-column=time_ago_in_words good.created_at
+          %td.list-column=time_ago_in_words good.updated_at
+          %td.list-column=good.name
+          %td.list-column.list-row-action
+            .list-row-action-wrapper
+              =link_to tag_icon(:edit), :href => url(:goods, :edit, :id => good.id), :rel => :tooltip, :title => "#{pat(:edit)} good", :class => 'list-row-action-wrapper-link'
+              =link_to tag_icon(:trash), :rel => :tooltip, :title => "#{pat(:delete)} good", :class => 'list-row-action-delete-one list-row-action-wrapper-link'
+              .popover.list-row-action-popover-delete-one.left
+                .arrow
+                %h3.popover-title=pat(:delete, :model => "good")
+                .popover-content
+                  = form_tag url(:goods, :destroy, :id => good.id), :method => :delete do
+                    =submit_tag pat(:delete), :class =>'list-row-action-popover-delete-one-btn btn btn-danger btn-small'
+                    .btn.btn-default.btn-small.cancel=pat(:cancel)
