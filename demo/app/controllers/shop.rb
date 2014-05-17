@@ -12,17 +12,20 @@ Demo::App.controllers :shop do
   post :create do
     file = params[:filename][:tempfile]
     paramsInfor = params[:shop]
-    p params
-
-    filename = "#{Time.now}" + @owner.tel
-    File.open(fileroot + filename, "w") do |f|
+    f = params[:filename][:filename].to_s.split('.').last
+    t = Time.at(Time.now).strftime "%y%m%d%H%M%S"
+    filename = t + @owner.tel + '.' + f 
+    File.open(fileroot + filename, "wb") do |f|
       f.write(file.read)
     end
+    location = paramsInfor['address_code'].to_s.split(',')
+    lat = location[1]
+    lon = location[0]
 
     @shop = Shop.create(:name => paramsInfor['name'], :address => paramsInfor['address'], 
                         :shop_tel => paramsInfor['shop_tel'], :category => paramsInfor['category'],
                         :profile => paramsInfor['profile'], :avatar => filename, 
-                        :lat => 123.434, :lon => 34.4343,
+                        :lat => lat, :lon => lon,
                         :rating => 5,  :shopowner_id => session[:id])
     if ! @shop.nil?
       redirect_to 'shop'
@@ -33,18 +36,20 @@ Demo::App.controllers :shop do
   end
 
   put :update do
-    p params
     file = params[:filename][:tempfile]
-    p file
     paramsInfor = params[:shop]
     @shop = @owner.shop
-    File.open(fileroot + @shop.avatar, "w") do |f|
+    File.open(fileroot + @shop.avatar, "wb") do |f|
       f.write(file.read)
     end
+
+    location = paramsInfor['address_code'].to_s.split(',')
+    lat = location[1]
+    lon = location[0]
     @shop = @shop.update(:name => paramsInfor['name'], :address => paramsInfor['address'], 
                         :shop_tel => paramsInfor['shop_tel'], :category => paramsInfor['category'],
                         :profile => paramsInfor['profile'], 
-                        :lat => 123.434, :lon => 34.4343,
+                        :lat => lat, :lon => lon,
                         :rating => 5,  :shopowner_id => session[:id])
 
     if ! @shop.nil?

@@ -11,14 +11,14 @@ Demo::App.controllers :good do
   end
 
   post :create do
-    p params
     file = params[:filename][:tempfile]
-    p file
-    infor = params['good']
-    filename = "#{Time.now}" + @owner.tel
-    File.open(fileroot + filename, "w") do |f|
+    f = params[:filename][:filename].to_s.split('.').last
+    t = Time.at(Time.now).strftime "%y%m%d%H%M%S"
+    filename = t + @owner.tel + '.' + f 
+    File.open(fileroot + filename, "wb") do |f|
       f.write(file.read)
     end
+    p infor
     @good = Good.create(:name => infor['name'], :shop_id => @owner.shop.id,
                         :price => infor['price'], :profile => infor['profile'],
                         :note => infor['note'], :service => infor['service'],
@@ -35,8 +35,7 @@ Demo::App.controllers :good do
     file = params[:filename][:tempfile]
     infor = params['good']
     @good = @owner.shop.good
-    p @good
-    File.open( fileroot + @good.avatar, "w") do |f|
+    File.open( fileroot + @good.avatar, "wb") do |f|
       f.write(file.read)
     end
     @good = @good.update(:name => infor['name'], :shop_id => @owner.shop.id,

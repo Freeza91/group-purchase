@@ -34,10 +34,10 @@ ActiveRecord::Schema.define(version: 20140505134114) do
 
   create_table "goods", force: true do |t|
     t.integer  "shop_id"
-    t.decimal  "price",       precision: 10, scale: 0
+    t.decimal  "price",                        precision: 10, scale: 0
     t.string   "profile"
-    t.text     "note"
-    t.text     "service"
+    t.text     "note",        limit: 16777215
+    t.text     "service",     limit: 16777215
     t.string   "avatar"
     t.boolean  "status"
     t.integer  "integration"
@@ -59,8 +59,8 @@ ActiveRecord::Schema.define(version: 20140505134114) do
     t.string   "name"
     t.string   "address"
     t.integer  "shopowner_id"
-    t.decimal  "lat",          precision: 10, scale: 0
-    t.decimal  "lon",          precision: 10, scale: 0
+    t.string   "lat"
+    t.string   "lon"
     t.string   "shop_tel"
     t.integer  "rating"
     t.string   "category"

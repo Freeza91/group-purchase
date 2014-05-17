@@ -1,8 +1,33 @@
-.tabs-content
-  %table.table.table-striped.table-hover.table-condensed
-    %h1.center huanlinglaidao
-    %tr
-      %td 
-        = link_to "Add Shop!!", url(:shop, :index), :class => "btn btn-infor"
-      %td
-        = link_to "Modify your infor", url(:shopowner, :edit, :id => @owner.id), :class => "btn btn-infor"
+.base-text
+  %p 
+    %h1 Welcome to 
+  .tabs-content
+    %table.table.table-striped.table-hover.table-condensed
+      %tr
+        %td 
+          = link_to "Add Good!!", url(:good, :index), :class => "btn btn-infor"
+        %td 
+          = link_to "Modify your Shop infor", url(:shop, :edit, :id => @owner.id), :class => "btn btn-infor"
+      %tr 
+        %td
+          %span
+            %h2.col-md-offset-1
+              = @owner.shop.name
+        %td
+          %span
+            %p &nbsp
+            %h4.col-md-offset-1
+              = @owner.shop.address
+              >>
+              = @owner.shop.category
+
+      %tr
+        %td 
+          = @owner.shop.profile
+        %td 
+          = image_tag @owner.shop.avatar
+
+            
+
+
+
