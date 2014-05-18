@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.example.view.MyGridView
+        android:id="@+id/grid"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:columnWidth="20dp"
+        android:gravity="center"
+        android:horizontalSpacing="5dp"
+        android:numColumns="6"
+        android:stretchMode="columnWidth"
+        android:lines="2"
+        android:verticalSpacing="10dp" >
+	</com.example.view.MyGridView>
+	
+	<ImageView   
+        android:layout_width="fill_parent"  
+        android:layout_height="5dp"  
+        android:background="#ffffff"  
+        />  
+        
+	
+    <TextView
+        android:id="@+id/guess"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="bottom" />
+    <ImageView 
+        android:layout_width="fill_parent"
+        android:layout_height="4px"
+		android:background="#ffffff"
+        />
+
+</LinearLayout>

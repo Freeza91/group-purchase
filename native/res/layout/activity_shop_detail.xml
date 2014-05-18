@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+   <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:background="@color/blue"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_marginLeft="50px"
+            android:background="@drawable/ic_launcher"/>
+        
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_marginRight="100px"
+            android:background="@drawable/ic_action_map"/>
+        
+	</LinearLayout>
+	
+   <LinearLayout 
+       android:layout_width="match_parent"
+       android:layout_height="fill_parent"
+       android:layout_weight="10"
+       android:orientation="vertical"
+       >
+       <ImageView 
+           android:id="@+id/shop_detail_avatar"
+           android:layout_width="match_parent"
+           android:layout_height="300px"
+           android:src="@drawable/ic_launcher"
+           />
+      	<LinearLayout 
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+           <TextView 
+	           android:id="@+id/shop_detail_name"
+	           android:layout_width="wrap_content"
+	           android:layout_height="fill_parent"
+	           android:text="店名"
+           />
+           	<TextView 
+	           android:id="@+id/shop_detail_address"
+	           android:layout_width="wrap_content"
+	           android:layout_height="fill_parent"
+	           android:text="地址"
+           	/>
+
+       </LinearLayout>
+       
+       <TextView 
+           android:id="@+id/shop_detail_tel"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:text="电话"
+           />
+       	<TextView 
+           android:id="@+id/shop_detail_profile"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:text="简介"
+           />
+       	<LinearLayout 
+       	    android:layout_width="fill_parent"
+       	    android:layout_height="wrap_content"
+       	    android:orientation="horizontal">
+			<TextView 
+	           android:id="@+id/shop_detail_category"
+	           android:layout_width="wrap_content"
+	           android:layout_height="fill_parent"
+	           android:text="类别"
+	           />
+			<TextView 
+	           android:id="@+id/shop_detail_rating"
+	           android:layout_width="wrap_content"
+	           android:layout_height="fill_parent"
+	           android:text="评分"
+	           />
+		</LinearLayout>
+   </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">group-purchase</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="update_at">更新于：</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="title_activity_example1">Example1</string>
+    <string name="title_activity_index_table">IndexTable</string>
+    <string name="group_purchase">团购</string>
+    <string name="shop">商家</string>
+    <string name="collection">收藏</string>
+    <string name="setting">设置</string>
+    <string name="title_activity_listview">ListviewActivity</string>
+    <string name="title_activity_collection">Collection</string>
+    <string name="pull_to_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_refresh_release_label">放开以刷新</string>
+    <string name="pull_to_refresh_refreshing_label">载入中</string>
+    <string name="pull_to_refresh_tap_label">点击这里刷新</string>
+    <string name="drop_down_list_header_default_text">Click to refresh&#8230;</string>
+    <string name="drop_down_list_header_pull_text">Drop Down to refresh&#8230;</string>
+    <string name="drop_down_list_header_release_text"></string>
+    <string name="drop_down_list_header_loading_text">Loading&#8230;</string>
+    <string name="drop_down_list_footer_default_text">More</string>
+    <string name="drop_down_list_footer_loading_text">Loading&#8230;</string>
+    <string name="drop_down_list_footer_no_more_text">No More</string>
+    <string name="image_content">Image</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_register">Register</string>
+    <string name="title_activity_user_infor">UserInfor</string>
+    <string name="title_activity_update_username">UpdateUsername</string>
+    <string name="title_activity_update_password">UpdatePassword</string>
+    <string name="title_activity_map_plan">MapPlan</string>
+
+</resources>

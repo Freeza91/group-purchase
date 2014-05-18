@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+      <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:background="@color/blue" >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_marginLeft="50px"
+            android:background="@drawable/ic_launcher"/>
+        
+        <ImageView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_marginRight="100px"
+            android:background="@drawable/ic_action_map"/>
+        
+    </RelativeLayout>
+    <com.example.view.DropDown
+        android:id="@+id/goods_refresh"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:divider="#FFffff"
+        android:dividerHeight="7px"  
+        />
+
+</LinearLayout>

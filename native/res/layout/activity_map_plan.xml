@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent" >
+    <LinearLayout 
+       	android:layout_width="match_parent"
+     	android:layout_height="wrap_content"
+     	android:orientation="vertical" >
+	    <TextView 
+	        android:id="@+id/from"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="我的位置"/>
+	    
+	    <TextView 
+	        android:id="@+id/to"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="目的地"/>
+	    
+	    <com.baidu.mapapi.map.MapView 
+		    android:id="@+id/bmap"  
+	        android:layout_width="fill_parent"  
+			android:layout_height="600px"  
+	        android:clickable="true" />  
+	   
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        >
+	    	<Button
+	    	    android:id="@+id/bus"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="公交" 
+	        	/>    
+	        
+	    	<Button
+	    	    android:id="@+id/walk"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="步行" 
+	        	/>   
+	
+	    	<Button
+	    	    android:id="@+id/drive"
+	    	    android:layout_width="wrap_content"
+	    	    android:layout_height="wrap_content"
+	    	    android:text="自驾车" 
+	        	/>   
+		</LinearLayout>
+		
+		<TextView 
+		    android:id="@+id/plan"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:text="plan"
+		    />
+	</LinearLayout>
+</ScrollView>

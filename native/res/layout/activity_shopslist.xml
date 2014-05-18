@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+   
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue" >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/abc_ic_go"/>
+        
+	</LinearLayout>    
+
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:dividerPadding="4dp">
+    	<Button
+        android:id="@+id/leftSpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="分类"
+         />
+
+	    <Button
+		    android:id="@+id/midSpinner"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:text="距离"   
+		     />
+
+	     <Button
+			android:id="@+id/rightSpinner"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"		   
+			android:layout_weight="1"        
+			android:text="评价"
+			/>
+        
+    </LinearLayout>
+	<ImageView 
+	        android:layout_width="fill_parent"
+	        android:layout_height="5px"
+			android:background="#ffffff"
+			
+        />  
+
+    
+    <com.example.view.DropDown
+        android:id="@+id/shops_refresh"	
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:divider="#FFffff"
+        android:dividerHeight="7px"  
+        />
+
+</LinearLayout>
