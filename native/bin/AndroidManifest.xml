@@ -77,7 +77,9 @@
         </activity>
         <activity
             android:name="com.example.collectionList.CollectionList"
-            android:label="collectionLIst" >
+            android:label="collectionLIst"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+             >
         </activity>
         <activity
             android:name="com.example.shopsandgoodsList.GoodsList"
@@ -114,23 +116,28 @@
         </activity>
         <activity
             android:name="com.example.useraccount.RegisterActivity"
-            android:label="register" >
+            android:label="register"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
             android:name="com.example.useraccount.UserInfor"
-            android:label="@string/title_activity_user_infor" >
+            android:label="@string/title_activity_user_infor"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
             android:name="com.example.useraccount.UpdateUsername"
-            android:label="@string/title_activity_update_username" >
+            android:label="@string/title_activity_update_username"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
             android:name="com.example.useraccount.UpdatePassword"
-            android:label="@string/title_activity_update_password" >
+            android:label="@string/title_activity_update_password"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
             android:name="com.example.baidumap.MapPlan"
-            android:label="@string/title_activity_map_plan" >
+            android:label="@string/title_activity_map_plan"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
     </application>
 

@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
+import android.os.Bundle;
+import android.sax.StartElementListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -18,9 +18,13 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.get_data.DataStatus;
+import com.example.group_purchase.IndexTable;
 import com.example.group_purchase.R;
+import com.example.shopsandgoodsList.GoodDetail;
+import com.example.shopsandgoodsList.GoodsList;
+import com.example.shopsandgoodsList.ShopsList;
 import com.example.view.MyGridView;
 
 public class DropDownDataAdapter1 extends BaseAdapter{
@@ -100,7 +104,7 @@ public class DropDownDataAdapter1 extends BaseAdapter{
 	private void setGridView(GridView grid){
 		ArrayList<HashMap<String, Object>> gridItem = new ArrayList<HashMap<String,Object>>();
 		
-		String category [] = {"美食", "电影", "酒店", "ktv", "丽人", "门票"};
+		String category [] = {"美食", "电影", "酒店", "ktv", "丽人", "休闲娱乐"};
 		int image [] = {R.drawable.ic_category_0, R.drawable.ic_category_1, R.drawable.ic_category_2,
 						R.drawable.ic_category_3, R.drawable.ic_category_4, R.drawable.ic_category_5};
 		
@@ -124,16 +128,28 @@ public class DropDownDataAdapter1 extends BaseAdapter{
 		
 		grid.setAdapter(gridAdapter);  
 		//添加消息处理  
-		grid.setOnItemClickListener(new ItemClickListener());  
+		grid.setOnItemClickListener(new ItemClickListener(this.context)); 
 	}
 }
 
 class ItemClickListener  implements OnItemClickListener  {
 
+	private Context c;
+	
+	public ItemClickListener(Context c){
+		this.c = c;
+	}
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> item=(HashMap<String, Object>) parent.getItemAtPosition(position);
+		DataStatus.category =  item.get("category").toString();
+		Bundle b = new Bundle();
+		b.putBoolean("category", true);
+		Intent intent = new Intent(c, IndexTable.class);
+		intent.putExtras(b);
+		this.c.startActivity(intent);
+
 	}
 }

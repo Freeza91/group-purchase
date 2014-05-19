@@ -120,4 +120,15 @@ public class UpdatePassword extends Activity {
 		}
 		return true;
 	}
+	
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent();
+		setResult(UserInfor.UPDATE_nothing, intent);
+		UpdatePassword.this.finish();
+		super.onBackPressed();
+
+	}
 }

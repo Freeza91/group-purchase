@@ -116,9 +116,9 @@ public class PopWindowMidOrRight extends PopupWindow{
 			Toast.makeText(this.context, parent.getAdapter().getItem(position).toString(), 
 					Toast.LENGTH_SHORT).show();
 			if(flag == MID){
-				data.setDis(parent.getAdapter().getItem(position).toString());
+				DataStatus.distance =  parent.getAdapter().getItem(position).toString();
 			}else if(flag == RIGHT){
-				data.setRating(parent.getAdapter().getItem(position).toString());
+				DataStatus.rating = parent.getAdapter().getItem(position).toString();
 			}
 		}
 	}

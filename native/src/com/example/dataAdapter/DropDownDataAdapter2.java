@@ -1,32 +1,26 @@
 package com.example.dataAdapter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.baidumap.MapData;
 import com.example.group_purchase.R;
-import com.example.view.MyGridView;
 
 public class DropDownDataAdapter2 extends BaseAdapter{
 
 	Context context;
 	LayoutInflater mInflater;
+	ViewHolder1 view1 = null;
 	LinkedList<HashMap<String, String>> listdata;
 	
 	public DropDownDataAdapter2(Context context, LinkedList<HashMap<String, String>> listdata){
@@ -58,11 +52,17 @@ public class DropDownDataAdapter2 extends BaseAdapter{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 		int type = position;
+
 		if (type == 0){
 			convertView = mInflater.inflate(R.layout.dropdown_pre2, null);
-			ViewHolder1 view1 = new ViewHolder1();
+			view1 = new ViewHolder1();
 			view1.location = (TextView) convertView.findViewById(R.id.location);
 			convertView.setTag(view1);
+			HashMap<String, String> map = listdata.get(0);
+			if(map.containsKey("location") && map.get("location") != null)
+				view1.location.setText(map.get("location").toString());
+			else
+				view1.location.setText("位置加载中。。。。");
 
 		}else{
 			convertView = mInflater.inflate(R.layout.dropdown_content2, null);

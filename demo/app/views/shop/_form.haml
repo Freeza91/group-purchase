@@ -17,7 +17,7 @@
 
   .controls
     =f.select :category, :class => "col-xs-2 input-large input-with-feedback ", :placeholder => 'dianhua',:value => @shop.category,
-     :options => ["meishi", "huoguo"]
+     :options => ["火锅", "自助餐", "西餐", "日韩料理", "甜点", "烧烤烤鱼", "川湘菜", "江浙菜", "粤菜", "小吃快餐", "经济型酒店", "豪华型酒店",  "电影", "KTV", "洗浴", "健身", "桌游", "密室逃脱", "酒吧", "演出赛事", "真人CS", "摄影", "体检", "照片冲印", "服装服务", "配镜", "鲜花婚庆", "美发", "美甲", "美容SPA", "舞蹈", "本地/周边旅游", "景点门票"]
     %span.col-xs-2
     =file_field_tag "filename", :class => "col-xs-8 input-large input-with-feedback"
     %p 

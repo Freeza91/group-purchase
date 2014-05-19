@@ -108,4 +108,15 @@ public class UpdateUsername extends Activity {
 	        progressDialog.dismiss();
 		}
 	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent();
+		setResult(UserInfor.UPDATE_nothing, intent);
+		UpdateUsername.this.finish();
+		super.onBackPressed();
+	}
+	
+	
 }

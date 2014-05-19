@@ -28,8 +28,8 @@ import org.apache.http.params.HttpParams;
 import android.util.Log;
 
 public class HttpRequest {
-
-	final String baseurl = "http://10.12.91.164:9393";
+	
+	final String baseurl = "http://10.12.91.164:3000";
 	
 	private HashMap<String, String>map = new HashMap<String, String>();
 	private List<NameValuePair> pairList = new ArrayList<NameValuePair>();
@@ -53,46 +53,44 @@ public class HttpRequest {
 		params = new BasicHttpParams();
 		/* 超时设置 */
         /* 从连接池中取连接的超时时间 */
-        ConnManagerParams.setTimeout(params, 1000);
+        ConnManagerParams.setTimeout(params, 20000);
         /* 连接超时 */
-        HttpConnectionParams.setConnectionTimeout(params, 2000);
+        HttpConnectionParams.setConnectionTimeout(params, 20000);
         /* 请求超时 */
-        HttpConnectionParams.setSoTimeout(params, 4000);
+        HttpConnectionParams.setSoTimeout(params, 20000);
 	}
 
 	public boolean Get(String Params) {
 		// TODO Auto-generated method stub
 		String url = baseurl + Params;
-		// 生成请求对象
-		HttpGet get = new HttpGet(url);
-		HttpClient httpClient = new DefaultHttpClient(params);
 		
-//		// 请求的格式， 在rails中必须设置这一个
-//		httpGet.setHeader("Accept", "text/javascript, application/javascript");
+		// 生成请求对象
+		HttpClient httpClient = new DefaultHttpClient(params);
+		HttpGet get = new HttpGet(url);
+		
+		// 请求的格式， 在rails中必须设置这一个
+		get.setHeader("Accept", "text/html");
 //
 //		// 回应的格式， 在rails中不需要设置？？？
-//		httpGet.setHeader("Content-type",
-//				"text/javascript, application/javascript");
+		get.setHeader("Content-type","text/html");
 		HttpResponse response = null;
 		boolean flag = true;
 		try {
 			response = httpClient.execute(get);
 			// 显示响应
 		}catch(ConnectTimeoutException e){
-			ResponedData.mapresponse.put("message", "nohttpconnect");
 			flag = false;
 		}catch(NoHttpResponseException e){
-			ResponedData.mapresponse.put("message", "nohttpconnect");
 			flag = false;
 		}catch (Exception e) {
-			ResponedData.mapresponse.put("message", "nohttpconnect");
 			flag = false;
 			e.printStackTrace();
 		} finally {
 			if(flag)
 				new HttpRespond(response, "GET");// 一个私有方法，将响应结果显示出来
-			else
+			else{
 				ResponedData.flagresponse = 0;
+			}
 		}
 		return true;
 	}
@@ -100,7 +98,7 @@ public class HttpRequest {
 	public boolean Post(String Params) {
 		
 		//create users
-		url = baseurl + "/users" + Params;
+		url = baseurl + "/user" + Params;
 		// TODO Auto-generated method stub
 		HttpResponse response = null;
 		boolean flag = true;
@@ -133,7 +131,7 @@ public class HttpRequest {
 
 	public boolean Put(String Params) {
 		// TODO Auto-generated method stub
-		url = baseurl + "/users/update" + Params;
+		url = baseurl + "/user/update" + Params;
 		HttpResponse response = null;
 		boolean flag = true;
 
@@ -149,11 +147,9 @@ public class HttpRequest {
 			ResponedData.mapresponse.put("message", "nohttpconnect");
 		}catch(ConnectTimeoutException e){
 			ResponedData.mapresponse.put("message", "nohttpconnect");
-			Log.d("appTag", "ConnectTimeoutException");
 			flag = false;
 		}catch (Exception e) {
 			ResponedData.mapresponse.put("message", "nohttpconnect");
-			Log.d("appTag", "Exception");
 			flag = false;
 			e.printStackTrace();
 			return false;

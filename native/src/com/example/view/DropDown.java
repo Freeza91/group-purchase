@@ -55,7 +55,7 @@ import com.example.group_purchase.R;
  */
 public class DropDown extends ListView implements OnScrollListener {
 
-    private boolean            isDropDownStyle         = true;
+	private boolean            isDropDownStyle         = true;
     private boolean            isOnBottomStyle         = true;
     private boolean            isAutoLoadOnBottom      = false;
 
@@ -117,18 +117,18 @@ public class DropDown extends ListView implements OnScrollListener {
     /** whether is on bottom loading **/
     private boolean            isOnBottomLoading       = false;
 
-    public DropDown(Context context){
+    public DropDown(Context context) {
         super(context);
         init(context);
     }
 
-    public DropDown(Context context, AttributeSet attrs){
+    public DropDown(Context context, AttributeSet attrs) {
         super(context, attrs);
         getAttrs(context, attrs);
         init(context);
     }
 
-    public DropDown(Context context, AttributeSet attrs, int defStyle){
+    public DropDown(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         getAttrs(context, attrs);
         init(context);
@@ -159,15 +159,15 @@ public class DropDown extends ListView implements OnScrollListener {
             return;
         }
 
-        headerReleaseMinDistance = context.getResources()
-                                          .getDimensionPixelSize(R.dimen.drop_down_list_header_release_min_distance);
+        headerReleaseMinDistance = context.getResources().getDimensionPixelSize(
+                R.dimen.drop_down_list_header_release_min_distance);
         flipAnimation = new RotateAnimation(0, 180, RotateAnimation.RELATIVE_TO_SELF, 0.5f,
-                                            RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+                RotateAnimation.RELATIVE_TO_SELF, 0.5f);
         flipAnimation.setInterpolator(new LinearInterpolator());
         flipAnimation.setDuration(250);
         flipAnimation.setFillAfter(true);
         reverseFlipAnimation = new RotateAnimation(-180, 0, RotateAnimation.RELATIVE_TO_SELF, 0.5f,
-                                                   RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+                RotateAnimation.RELATIVE_TO_SELF, 0.5f);
         reverseFlipAnimation.setInterpolator(new LinearInterpolator());
         reverseFlipAnimation.setDuration(250);
         reverseFlipAnimation.setFillAfter(true);
@@ -183,14 +183,14 @@ public class DropDown extends ListView implements OnScrollListener {
         headerImage = (ImageView)headerLayout.findViewById(R.id.drop_down_list_header_image);
         headerProgressBar = (ProgressBar)headerLayout.findViewById(R.id.drop_down_list_header_progress_bar);
         headerSecondText = (TextView)headerLayout.findViewById(R.id.drop_down_list_header_second_text);
-//        headerLayout.setClickable(false);
-//        headerLayout.setOnClickListener(new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                onDropDown();
-//            }
-//        });
+        headerLayout.setClickable(true);
+        headerLayout.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                onDropDown();
+            }
+        });
         headerText.setText(headerDefaultText);
         addHeaderView(headerLayout);
 
@@ -428,7 +428,7 @@ public class DropDown extends ListView implements OnScrollListener {
                     setHeaderStatusClickToLoad();
                 }
             } else if (currentScrollState == SCROLL_STATE_FLING && firstVisibleItem == 0
-                       && currentHeaderStatus != HEADER_STATUS_LOADING) {
+                    && currentHeaderStatus != HEADER_STATUS_LOADING) {
                 /**
                  * when state of ListView is SCROLL_STATE_FLING(ListView is scrolling but finger has leave screen) and
                  * first item(header layout) is visible and header status is not HEADER_STATUS_LOADING, then hide first
@@ -898,10 +898,12 @@ public class DropDown extends ListView implements OnScrollListener {
         }
         for (int i = 0; i < pointerCount; i++) {
             if (currentHeaderStatus == HEADER_STATUS_DROP_DOWN_TO_LOAD
-                || currentHeaderStatus == HEADER_STATUS_RELEASE_TO_LOAD) {
-                headerLayout.setPadding(headerLayout.getPaddingLeft(),
-                                        (int)(((ev.getHistoricalY(i) - actionDownPointY) - headerOriginalHeight) / headerPaddingTopRate),
-                                        headerLayout.getPaddingRight(), headerLayout.getPaddingBottom());
+                    || currentHeaderStatus == HEADER_STATUS_RELEASE_TO_LOAD) {
+                headerLayout
+                        .setPadding(
+                                headerLayout.getPaddingLeft(),
+                                (int)(((ev.getHistoricalY(i) - actionDownPointY) - headerOriginalHeight) / headerPaddingTopRate),
+                                headerLayout.getPaddingRight(), headerLayout.getPaddingBottom());
             }
         }
     }
@@ -911,7 +913,7 @@ public class DropDown extends ListView implements OnScrollListener {
      */
     private void resetHeaderPadding() {
         headerLayout.setPadding(headerLayout.getPaddingLeft(), headerOriginalTopPadding,
-                                headerLayout.getPaddingRight(), headerLayout.getPaddingBottom());
+                headerLayout.getPaddingRight(), headerLayout.getPaddingBottom());
     }
 
     /**
@@ -944,9 +946,9 @@ public class DropDown extends ListView implements OnScrollListener {
      */
     private void getAttrs(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.drop_down_list_attr);
-        isDropDownStyle = ta.getBoolean(R.styleable.drop_down_list_attr_isDropDownStyle, true);
-        isOnBottomStyle = ta.getBoolean(R.styleable.drop_down_list_attr_isOnBottomStyle, true);
-        isAutoLoadOnBottom = ta.getBoolean(R.styleable.drop_down_list_attr_isAutoLoadOnBottom, true);
+        isDropDownStyle = ta.getBoolean(R.styleable.drop_down_list_attr_isDropDownStyle, false);
+        isOnBottomStyle = ta.getBoolean(R.styleable.drop_down_list_attr_isOnBottomStyle, false);
+        isAutoLoadOnBottom = ta.getBoolean(R.styleable.drop_down_list_attr_isAutoLoadOnBottom, false);
         ta.recycle();
     }
 }

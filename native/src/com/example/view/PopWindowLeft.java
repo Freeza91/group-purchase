@@ -23,7 +23,7 @@ import com.example.shopsandgoodsList.ShopsList;
 
 public class PopWindowLeft extends PopupWindow{
 
-	Context context;
+	Context main_context;
 	LayoutInflater inflater;
 	View view;
 	ListView lv_left, lv_right;
@@ -44,7 +44,7 @@ public class PopWindowLeft extends PopupWindow{
 		// TODO Auto-generated constructor stub
 		super(LayoutInflater.from(context).inflate(R.layout.popdrop_left, null),
 				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, true);
-		this.context = context;
+		this.main_context = context;
 		view = LayoutInflater.from(context).inflate(R.layout.popdrop_left, null);
 		this.setAnimationStyle(R.style.PopupWindowAnimation);
 //		this.setAnimationStyle(android.R.style.Animation_Dialog);
@@ -54,7 +54,7 @@ public class PopWindowLeft extends PopupWindow{
 		this.setTouchable(true);
 		this.setFocusable(true);
 		this.setOutsideTouchable(true);
-		this.setBackgroundDrawable(new BitmapDrawable(this.context.getResources(), (Bitmap) null));
+		this.setBackgroundDrawable(new BitmapDrawable(this.main_context.getResources(), (Bitmap) null));
 		this.view.setBackgroundResource(R.drawable.choosearea_bg_left);
 		this.setContentView(view);
 		addListContent();
@@ -67,11 +67,11 @@ public class PopWindowLeft extends PopupWindow{
 		lv_right = (ListView) view.findViewById(R.id.popdropcontent_right);
 		lv_right.setPadding(1, 0, 0, 0);
 
-		SimpleAdapter adapter = new SimpleAdapter(this.context, getData(),
+		SimpleAdapter adapter = new SimpleAdapter(this.main_context, getData(),
 				R.layout.popdrop1,new String [] {"category"},new int []{R.id.popdrop1}
 				);
 		lv_left.setAdapter(adapter);
-		lv_left.setOnItemClickListener(new MyOnItemClick(this.context));
+		lv_left.setOnItemClickListener(new MyOnItemClick(this.main_context));
 	}
 	
 	private ArrayList<HashMap<String, Object>> getData(){
@@ -96,8 +96,6 @@ public class PopWindowLeft extends PopupWindow{
 				long id) {
 			// TODO Auto-generated method stub
 			if(position == 0){
-				DataStatus data = new DataStatus();
-				data.setCate("全部分类");
 			}else{
 				int mark = position - 1;
 				ArrayList<HashMap<String, Object>> item = new ArrayList<HashMap<String,Object>>();
@@ -130,13 +128,15 @@ public class PopWindowLeft extends PopupWindow{
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			// TODO Auto-generated method stub
-			DataStatus data = new DataStatus();
 			if(position == 0){ 
-				data.setCate("全部");
-			}else {
+			}else{
 				String value =  parent.getAdapter().getItem(position).toString();
-				data.setCate("value");
-				Toast.makeText(this.context, value, Toast.LENGTH_LONG).show();
+				
+				DataStatus.category = value.substring(18, value.length() - 1);
+				DataStatus.current_shop = 0;
+				Toast.makeText(this.context, DataStatus.category, Toast.LENGTH_LONG).show();
+				PopWindowLeft.this.dismiss();
+				((ShopsList)main_context).AddContent(true);
 			}
 		}
 	}

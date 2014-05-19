@@ -10,14 +10,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.get_data.ResponedData;
 import com.example.group_purchase.IndexTable;
 import com.example.group_purchase.R;
 
 public class UserInfor extends Activity {
 
-	private Button update_uname,update_pass;
+	private Button update_uname,update_pass,logout, back;
 	private TextView user_infor;
-	final static int UPDATE_uname = 1, UPDATE_pass = 2;
+	final static int UPDATE_uname = 1, UPDATE_pass = 2, UPDATE_nothing = 3;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,13 +27,33 @@ public class UserInfor extends Activity {
 		
 		update_uname = (Button) findViewById(R.id.update_uname);
 		update_pass =  (Button) findViewById(R.id.update_pass);
-		
+		back = (Button)findViewById(R.id.back_user);
+		logout = (Button)findViewById(R.id.logout);
+
 		user_infor = (TextView) findViewById(R.id.user_infor);
 		
+		Bundle b = getIntent().getExtras();
+		if(b != null && b.getString("username").toString() != null){
+			user_infor.setText(b.getString("username").toString());
+		}
 		addlistener();
 	}
 	
 	private void addlistener(){
+		
+		back.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(UserInfor.this, IndexTable.class);
+				Bundle bundle = new Bundle();
+				bundle.putString("token", ReadToken());
+				intent.putExtras(bundle);
+				startActivity(intent);
+			}
+		});
+		
 		update_uname.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -52,6 +73,17 @@ public class UserInfor extends Activity {
 				startActivityForResult(intent_update_pass, UPDATE_pass);
 			}
 		});
+		
+		logout.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				deleteToken();
+				Intent intent = new Intent(UserInfor.this, IndexTable.class);
+				UserInfor.this.startActivity(intent);
+			}
+		});
 	}
 	
 	@Override
@@ -66,6 +98,9 @@ public class UserInfor extends Activity {
 			case UPDATE_pass:
 				Toast.makeText(UserInfor.this, "更新密码成功", Toast.LENGTH_SHORT).show();
 				saveToken(b.getString("token").toString());
+			case UPDATE_nothing:
+				Toast.makeText(UserInfor.this, "更新失败！", Toast.LENGTH_SHORT).show();
+
 		}
 	}
 	
@@ -73,6 +108,19 @@ public class UserInfor extends Activity {
 		SharedPreferences sp = UserInfor.this.getSharedPreferences("token", MODE_PRIVATE);
 		SharedPreferences.Editor e = sp.edit();
 		e.putString("token", token);
+		e.commit();
+	}
+	
+	private String ReadToken(){
+		SharedPreferences sp = UserInfor.this.getSharedPreferences("token", MODE_PRIVATE);
+		String ans = sp.getString("token", "token");
+		return ans;
+	}
+	
+	private void deleteToken(){
+		SharedPreferences sp = UserInfor.this.getSharedPreferences("token", MODE_PRIVATE);
+		SharedPreferences.Editor e = sp.edit();
+		e.clear();
 		e.commit();
 	}
 

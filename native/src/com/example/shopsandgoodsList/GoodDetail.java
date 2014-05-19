@@ -21,7 +21,6 @@ public class GoodDetail extends Activity{
 		
 		init_ui();
 		addContent();
-		
 	}
 	
 	private void init_ui(){
@@ -36,15 +35,14 @@ public class GoodDetail extends Activity{
 	}
 	
 	private void addContent(){
-//		Bundle b = getIntent().getExtras();
-//		HashMap<String, String> map = new HashMap<String, String>();//= ResponedData.list_good.get();
-//		Toast.makeText(getApplicationContext(), b.getInt("num") + "", Toast.LENGTH_SHORT).show();
-//		name.setTag(map.get("name"));
-//		price.setTag(map.get("price"));
-//		integration.setTag(map.get("integration"));
-//		profile.setTag(map.get("profile"));
-//		note.setTag(map.get("note"));
-//		service.setTag(map.get("service"));
-		
+		Bundle b = getIntent().getExtras();
+		HashMap<String, String> map = ResponedData.list_good.get(b.getInt("num") - 1);
+		Toast.makeText(getApplicationContext(), b.getInt("num") + "", Toast.LENGTH_SHORT).show();
+		name.setText(map.get("name"));
+		price.setText(map.get("price"));
+		integration.setText(map.get("integration"));
+		profile.setText(map.get("profile"));
+		note.setText(map.get("note"));
+		service.setText(map.get("service"));
 	}
 }

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.dataAdapter.DropDownDataAdapter1;
 import com.example.dataAdapter.DropDownDataAdapter2;
+import com.example.get_data.DataStatus;
 import com.example.get_data.HttpRequest;
 import com.example.get_data.NetWork;
 import com.example.get_data.ResponedData;
@@ -26,9 +27,6 @@ import com.example.view.DropDown.OnDropDownListener;
 public class GoodsList extends Activity {
 
 	DropDown dp;
-	private Button left, mid, right;
-	int current = 0;
-	private int flag = 0;
 	DropDownDataAdapter1 dpAdatper;
 	
 	LinkedList<HashMap<String, String>> listItem ;
@@ -39,54 +37,44 @@ public class GoodsList extends Activity {
 		
 		dp = (DropDown) findViewById(R.id.goods_refresh);
 		
+		AddDPSetting();
 		AddContent();
-		AddPreContent(0);
-		
 	}
 	
-	private void AddPreContent(int flag){
+	private void AddContent(){
+		dp.setOnBottomStyle(true);
+		dp.setAutoLoadOnBottom(true);
+		
+		DataStatus.current_good = 0;
 		listItem = new LinkedList<HashMap<String, String>>();
 		LinkedList<HashMap<String, String>> list;
 		HashMap<String, String> mm = new HashMap<String, String>();
 		mm.put("1", "GridView");
 		listItem.add(mm);
-		for(int i=0; i<8; i++){
-			HashMap<String, String> m = new HashMap<String, String>();
-			m.put("1", "GridView");
-			listItem.add(m);
-		}
 		
 		if(!NetWork.isNetworkAvailable(this)){
 			dp.setFooterDefaultText("无法链接到网络");
 		}else{
 			dp.setFooterDefaultText("努力加载中");
-			if(flag == 0)
-				new GetDataTask().execute();
-        	
-        	int len = ResponedData.list_good.size();
-        	list = ResponedData.list_good;
-        	for(int i=0; i<len; i++){
-        		HashMap<String, String> m = new HashMap<String, String>();
-        		m = list.get(i);
-        		listItem.add(m);
-        	}
+				new GetDataTask(true).execute();
 		}
 		dpAdatper = new DropDownDataAdapter1(this, listItem);
 		dp.setAdapter(dpAdatper);
 	}
 	
-	private void AddContent(){
+	private void AddDPSetting(){
 		
 		dp.setDropDownStyle(false);
+		dp.setHeaderDefaultText("下拉刷新");
 		dp.setOnBottomStyle(true);
 		dp.setAutoLoadOnBottom(true);
-		dp.setHeaderDividersEnabled(false);
+		dp.setHeaderDividersEnabled(true);
 
 		dp.setOnDropDownListener(new OnDropDownListener() {
 			 
             @Override
             public void onDropDown() {
-            	AddPreContent(0);
+            	AddContent();
             }
         });
  
@@ -95,14 +83,7 @@ public class GoodsList extends Activity {
  
             @Override
             public void onClick(View v) {
-//            	new GetDataTask().execute();
-        		for(int i=0; i<8; i++){
-        			HashMap<String, String> m = new HashMap<String, String>();
-        			m.put("1", "GridView");
-        			listItem.add(m);
-        		}
-        		dpAdatper.notifyDataSetChanged();
-            	
+            	new GetDataTask(false).execute();
             }
         });
         
@@ -111,41 +92,71 @@ public class GoodsList extends Activity {
 	
 	private class GetDataTask extends AsyncTask<String, String, String>{
 
+		private boolean IsDropDown = true;
+		public GetDataTask(boolean isDrop){
+			this.IsDropDown = isDrop;
+		}
 		@Override
 		protected String doInBackground(String... params) {
 			// TODO Auto-generated method stub
-			if(flag == 0){
+			if(IsDropDown){
 				//第一次加载或者刷新
 				HttpRequest request = new HttpRequest(null);
-				request.Get("/shoplist");
-			}else{
-				//底部加载
+				request.Get("/goodlist/" + DataStatus.current_good);
 			}
 			return null;
 
 		}
 
 		@Override
-		protected void onPreExecute() {
-			// TODO Auto-generated method stub
-			int status = ResponedData.flagresponse;
-			if(status == 1){
-				AddPreContent(1);
-				dp.setSecondPositionVisible();
-			}else{
-				Toast.makeText(getApplicationContext(), "链接超时", Toast.LENGTH_SHORT).show();
-			}
-			dp.onDropDownComplete();
-			super.onPreExecute();
-		}
-
-		@Override
 		protected void onPostExecute(String result) {
 			// TODO Auto-generated method stub
+			int status = ResponedData.flagresponse;
+			//下拉
+			if(IsDropDown){
+				if(status == 1){
+					LinkedList<HashMap<String, String>> list = ResponedData.list_good;
+					int len = list.size();
+					for(int i=0; i<len; i++){
+						HashMap<String, String> map = list.get(i);
+						listItem.add(map);
+					}
+					if(len == 0 || len < 7){
+						Toast.makeText(getApplicationContext(), "当前没有更多信息", Toast.LENGTH_SHORT).show();
+						dp.setFooterDefaultText("没有更多了！");
+					}
+	        		dpAdatper.notifyDataSetChanged();
+				}else{
+					Toast.makeText(getApplicationContext(), "链接超时", Toast.LENGTH_SHORT).show();
+					dp.setFooterDefaultText("请重试！！");
+				}
+				dp.onDropDownComplete();
+				dp.setFooterDefaultText("");
+			}
+			//上提
+			else{
+				if(status == 1){
+					LinkedList<HashMap<String, String>> list = ResponedData.list_good;
+					int len = list.size();
+					for(int i=0; i<len; i++){
+						HashMap<String, String> map = list.get(i);
+						listItem.add(map);
+					}
+	        		if(len == 0 || len < 7){
+						Toast.makeText(getApplicationContext(), "已经到最后一页了！", Toast.LENGTH_SHORT).show();
+						dp.setFooterDefaultText("没有更多了！");
+	        		}
+	        		DataStatus.current_good ++;
+	        		dpAdatper.notifyDataSetChanged();
+
+				}else{
+					Toast.makeText(getApplicationContext(), "链接超时", Toast.LENGTH_SHORT).show();
+				}
+				dp.onBottomComplete();
+			}
 			super.onPostExecute(result);
 		}
 	}
-	
 	
 	private class DPOnItemOnClick implements OnItemClickListener{
 

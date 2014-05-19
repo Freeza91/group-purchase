@@ -1,12 +1,10 @@
 package com.example.group_purchase;
 
 import android.app.TabActivity;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,9 +12,7 @@ import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.baidumap.MapLocation;
 import com.example.shopsandgoodsList.GoodsList;
 import com.example.shopsandgoodsList.ShopsList;
 import com.example.useraccount.User;
@@ -32,6 +28,8 @@ public class IndexTable extends TabActivity {
 	private String account = "account";
 	private String setting = "setting";
 	private Bundle bundle;
+	int flag = 0;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -81,17 +79,16 @@ public class IndexTable extends TabActivity {
 		intent3.setClass(IndexTable.this, User.class);
 		
 		bundle = getIntent().getExtras();
-		boolean flag = false;
+		
 		if(bundle != null){
-			intent3.putExtras(bundle);
-			SaveToken(bundle.get("token").toString());
-			flag = true;
+			if(bundle.containsKey("category")){
+				flag = 1;
+			}else{
+				intent3.putExtras(bundle);
+				SaveToken(bundle.get("token").toString());
+				flag = 2;
+			}
 
-		}else{
-			bundle = new Bundle();
-			bundle.putString("token",ReadToken());
-			
-			intent3.putExtras(bundle);
 		}
 			
 		tab_collection.setIndicator(
@@ -108,7 +105,9 @@ public class IndexTable extends TabActivity {
 		tabHost.addTab(tab_collection);
 		tabHost.addTab(tab_setting);
 		
-		if(flag){
+		if(flag == 1){
+			tabHost.setCurrentTabByTag(shop);
+		}else if(flag == 2){
 			tabHost.setCurrentTabByTag(account);
 		}
 	}
@@ -142,12 +141,8 @@ public class IndexTable extends TabActivity {
 		SharedPreferences sp = getSharedPreferences("token", MODE_PRIVATE);
 		SharedPreferences.Editor editor = sp.edit();
 		editor.putString("token", token);
+		Log.d("appTag", "save chenggong");
 		editor.commit();
 	}
 	
-	private String ReadToken(){
-		SharedPreferences sp = getSharedPreferences("token", MODE_PRIVATE);
-		String ans = sp.getString("token", "NULL");
-		return ans;
-	}
 }

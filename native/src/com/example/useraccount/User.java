@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 import com.example.get_data.HttpRequest;
 import com.example.get_data.NetWork;
 import com.example.get_data.ResponedData;
-import com.example.group_purchase.IndexTable;
 import com.example.group_purchase.R;
 
 public class User extends Activity{
@@ -43,22 +41,22 @@ public class User extends Activity{
 					startActivity(i);
 				}else{
 					Intent intent = new Intent(User.this, UserInfor.class);
+					Bundle b = new Bundle();
+					b.putString("username", Tologin.getText().toString());
+					intent.putExtras(b);
 					startActivity(intent);
 				}
 			}
 		});
-		
 		initLoadData();
 	}
 	
 	private void initLoadData(){
-		bundle = getIntent().getExtras();
-		String token_flag = bundle.getString("token").toString();
-		if(token_flag == "NULL"){
-			Log.d("appTag",token_flag);
+		SharedPreferences sp = getSharedPreferences("token", MODE_PRIVATE);
+		if(sp == null || sp.getString("token", "123").equals("123")){
 			Tologin.setText("请登录");
 		}else{
-			token = bundle.getString("token");
+			token = sp.getString("token", "123");
 			if(NetWork.isNetworkAvailable(this)){
 				//refer 
 				//http://www.cnblogs.com/xiaoluo501395377/p/3430542.html
@@ -103,7 +101,7 @@ public class User extends Activity{
 			super.onPostExecute(result);
 				String status = result.get("message").toString();
 				if(status.equals("success")){
-					Tologin.setText(result.get("username").toString());
+					Tologin.setText(result.get("username").toString() + "");
 					flag = false;
 				}else if(status.equals("nohttpconnect")){
 					Tologin.setText("重试");

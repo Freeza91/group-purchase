@@ -23,9 +23,12 @@ post :login do
   tel = params[:tel]
   user = User.find_by(:tel => tel)
   reply = {}
+  p user
   if user and user.password == password
     reply['message'] = 'success'
-    reply['token'] = user.token
+    token = SecureRandom.uuid
+    user.update(:token => token)
+    reply['token'] = token
   else 
     reply['message'] = 'failed'
   end
@@ -43,6 +46,7 @@ put '/update/username' do
     user.update(:username => username, :token => token)
     reply['message'] = 'success'
     reply['token'] =  token
+    reply['username'] = username
   else
     reply['message'] = 'failed'
   end
@@ -61,6 +65,7 @@ put '/update/password' do
     user.update(:token => token, :password => password)
     reply['message'] = 'success'
     reply['token'] =  token
+    reply['username'] = user.username
   else
     reply['message'] = 'failed'
   end
@@ -90,25 +95,6 @@ end
 
 
 
-  # get :index, :map => '/foo/bar' do
-  #   session[:foo] = 'bar'
-  #   render 'index'
-  # end
-
-  # get :sample, :map => '/sample/url', :provides => [:any, :js] do
-  #   case content_type
-  #     when :js then ...
-  #     else ...
-  # end
-
-  # get :foo, :with => :id do
-  #   'Maps to url '/foo/#{params[:id]}''
-  # end
-
-  # get '/example' do
-  #   'Hello world!'
-  # end
-  
   get '/' do
     @user = Good.all
     reply = {}

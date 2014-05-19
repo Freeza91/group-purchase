@@ -5,6 +5,42 @@ module Demo
     register Padrino::Helpers
 
     enable :sessions
+    disable :protection
+
+    get 'goodlist/:id' do
+      id = params[:id]
+      num = 8
+      ofset = id.to_i * num.to_i
+      goodlist = Good.limit(num).offset(ofset)
+      reply = {}
+      i = 0
+      reply['message'] = 'good'
+      goodlist.each do |list|
+          reply[i] = JSON.parse list.to_json
+          i += 1
+      end
+      reply.to_json
+    end
+
+    get 'shoplist/:category/:id' do 
+      id = params[:id]
+      category = params[:category]
+      num = 8
+      ofset = num.to_i * id.to_i
+
+      categorys = deal category
+      p categorys
+      shoplist = Shop.where(:category =>  categorys).limit(num).offset(ofset)
+      reply = {}
+      i = 0
+      reply['message'] = 'shop'
+      shoplist.each do |list|
+          reply[i] = JSON.parse list.to_json
+          i = i + 1
+      end
+      reply.to_json
+
+    end
 
 
     ##

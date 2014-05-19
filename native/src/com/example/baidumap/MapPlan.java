@@ -11,25 +11,32 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.baidu.mapapi.BMapManager;
+import com.baidu.mapapi.map.LocationData;
 import com.baidu.mapapi.map.MKOfflineMap;
 import com.baidu.mapapi.map.MKOfflineMapListener;
 import com.baidu.mapapi.map.MapController;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MyLocationOverlay;
 import com.baidu.mapapi.search.MKPlanNode;
 import com.baidu.mapapi.search.MKSearch;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
+import com.example.get_data.DataStatus;
 import com.example.group_purchase.R;
 
 public class MapPlan extends Activity {
 	
 	private BMapManager mMapManager = null;  
     private MKSearch mMKSearch = null;  
+    private MyLocationOverlay myLocationOverlay;  
     
     private Button bus, walk, drive;
     private TextView from, to, plan;
     private MapView map;
     private MKPlanNode start, end;
     private Handler handler;
+    
+    private GeoPoint start_pt, end_pt;
+    Double lat_from, lon_from;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,23 @@ public class MapPlan extends Activity {
 		plan = (TextView) findViewById(R.id.plan);
 		
 		map = (MapView) findViewById(R.id.bmap);
+		
+		Bundle b = getIntent().getExtras();
+		if(b != null){
+			String name = b.getString("name");
+			String add = b.getString("address");
+			Double lat_to = b.getDouble("lat");
+			Double lon_to = b.getDouble("lon");
+			lat_from = MapData.lat;
+			lon_from = MapData.lon;
+			
+			from.setText("起点： " + name + "---->" + add);
+			to.setText("终点： " + DataStatus.add);
+			Log.d("appTag", lat_from + "");
+
+			start_pt = new GeoPoint((int) (lat_from * 1E6), (int) (lon_from * 1E6));
+			end_pt = new GeoPoint((int) (lat_to * 1E6), (int) (lon_to * 1E6));
+		}
 	}
 	
 	private void init_map(){
@@ -67,13 +91,26 @@ public class MapPlan extends Activity {
 		// 设置启用内置的缩放控件
 		MapController mMapController = map.getController();
 		// 得到mMapView的控制权,可以用它控制和驱动平移和缩放\
-		GeoPoint bit = new GeoPoint((int) (39.915 * 1E6), (int) (116.404 * 1E6));  
-//		GeoPoint bit = new GeoPoint((int) (39.964692 * 1E6), (int) (116.323857 * 1E6));
-		GeoPoint point = bit;
-
 		// 用给定的经纬度构造一个GeoPoint，单位是微度 (度 * 1E6)
-		mMapController.setCenter(point);// 设置地图中心点
+		mMapController.setCenter(start_pt);// 设置地图中心点
 		mMapController.setZoom(16);// 设置地图zoom级别
+		   
+		// 定位图层初始化  
+        myLocationOverlay = new MyLocationOverlay(map);  
+          
+          
+        //实例化定位数据，并设置在我的位置图层  
+        LocationData mLocData = new LocationData();  
+        mLocData.latitude = lat_from;
+        mLocData.longitude = lon_from;  
+        myLocationOverlay.setData(mLocData);  
+          
+        //添加定位图层  
+        map.getOverlays().add(myLocationOverlay);  
+          
+        //修改定位数据后刷新图层生效  
+        map.refresh();  
+		
 		
 		MKOfflineMap mOffline = null;
 		mOffline = new MKOfflineMap();  
@@ -109,8 +146,9 @@ public class MapPlan extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				start.pt = new GeoPoint((int) (39.915 * 1E6), (int) (116.404 * 1E6));
-				end.pt = new GeoPoint(40057031, 116307852);// 设置驾车路线搜索策略，时间优先、费用最少或距离最短  
+				start.pt = start_pt;
+				end.pt = end_pt; 
+				// 设置驾车路线搜索策略，时间优先、费用最少或距离最短  
 				mMKSearch.setDrivingPolicy(MKSearch.ECAR_TIME_FIRST);  
 				mMKSearch.transitSearch("北京", start, end);  
 				update_plan("bus");
@@ -123,8 +161,9 @@ public class MapPlan extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				start.pt = new GeoPoint((int) (39.915 * 1E6), (int) (116.404 * 1E6));
-				end.pt = new GeoPoint(40057031, 116307852);// 设置驾车路线搜索策略，时间优先、费用最少或距离最短  
+				start.pt = start_pt;
+				end.pt = end_pt; 
+				// 设置驾车路线搜索策略，时间优先、费用最少或距离最短  
 				mMKSearch.setDrivingPolicy(MKSearch.ECAR_TIME_FIRST);  
 				mMKSearch.walkingSearch(null, start, null, end); 
 				update_plan("walk");
@@ -137,8 +176,9 @@ public class MapPlan extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				start.pt = new GeoPoint((int) (39.915 * 1E6), (int) (116.404 * 1E6));
-				end.pt = new GeoPoint(40057031, 116307852);// 设置驾车路线搜索策略，时间优先、费用最少或距离最短  
+				start.pt = start_pt;
+				end.pt = end_pt; 
+				// 设置驾车路线搜索策略，时间优先、费用最少或距离最短  
 				mMKSearch.setDrivingPolicy(MKSearch.ECAR_TIME_FIRST);  
 				mMKSearch.drivingSearch(null, start, null, end);
 				update_plan("drive");

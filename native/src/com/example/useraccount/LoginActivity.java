@@ -24,17 +24,17 @@ import com.example.group_purchase.R;
 
 public class LoginActivity extends Activity {
 
-	private EditText username, password;
+	private EditText tel, password;
 	private Button register, login;
     private ProgressDialog progressDialog;
-    String uname, pass;
+    String utel, pass;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
-		username = (EditText) findViewById(R.id.login_username);
+		tel = (EditText) findViewById(R.id.login_tel);
 		password = (EditText) findViewById(R.id.login_password);
 		
 		setCheck();
@@ -74,11 +74,11 @@ public class LoginActivity extends Activity {
 		protected String[] doInBackground(String... params) {
 			// TODO Auto-generated method stub
 
-			uname = username.getText().toString();
+			utel = tel.getText().toString();
 			pass = password.getText().toString();
-			if (uname.length() > 0 && pass.length() > 3) {
+			if (utel.length() > 0 && pass.length() > 3) {
 				HashMap<String, String> map = new HashMap<String, String>();
-				map.put("username", uname);
+				map.put("tel", utel);
 				map.put("password", pass);
 				HttpRequest request = new HttpRequest(map);
 				request.Post("/login");
@@ -105,7 +105,7 @@ public class LoginActivity extends Activity {
 			// TODO Auto-generated method stub
 			super.onPostExecute(result);
 			String status = ResponedData.mapresponse.get("message").toString();
-			if(status.equals("sccuess")){
+			if(status.equals("success")){
 				Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(LoginActivity.this, IndexTable.class);
 				Bundle bundle = new Bundle();
@@ -130,14 +130,14 @@ public class LoginActivity extends Activity {
 	}
 	
 	private void setCheck(){
-		username.setOnFocusChangeListener(new OnFocusChangeListener() {
+		tel.setOnFocusChangeListener(new OnFocusChangeListener() {
 			
 			@Override
 			public void onFocusChange(View v, boolean hasFocus) {
 				// TODO Auto-generated method stub
 				if(!hasFocus){
-					String u = username.getText().toString();
-					if(u.length() == 0){
+					String utel = tel.getText().toString();
+					if(utel.length() == 0){
 						Toast.makeText(LoginActivity.this, "用户名不能为空，请重新填写！！！", Toast.LENGTH_SHORT).show();
 					}
 				}
@@ -165,7 +165,7 @@ public class LoginActivity extends Activity {
 	}
 	
 	private boolean checkagain(){
-		String u = username.getText().toString();
+		String u = tel.getText().toString();
 		if(u.length() == 0){
 			return false;
 		}
