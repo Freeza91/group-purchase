@@ -11,7 +11,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 public class ResponedData {
-	public static HashMap<String, String> mapresponse; //用户登录使用
+	public static HashMap<String, String> mapresponse = new HashMap<String, String>(); //用户登录使用; //用户登录使用
 	public static LinkedList<HashMap<String, String>> list_good;
 	public static LinkedList<HashMap<String, String>> list_shop;
 
@@ -67,7 +67,7 @@ public class ResponedData {
 				e.printStackTrace();
 			}
 			
-			mapresponse = new HashMap<String, String>(); //用户登录使用
+			
 			Iterator it = jsonObject.keys();
 	        while (it.hasNext()) {  
 	            String key = (String) it.next();  

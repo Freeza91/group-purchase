@@ -39,8 +39,6 @@ public class ShopsList extends Activity {
 	PopWindowLeft leftPopWindow;
 	PopWindowMidOrRight midPopWindow, rightPopWindow;
 	DropDownDataAdapter2 dpAdatper = null;
-	Handler handler = null;
-
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

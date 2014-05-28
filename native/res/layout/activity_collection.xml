@@ -7,12 +7,26 @@
         android:layout_width="match_parent"
         android:layout_height="100px"
         android:background="@color/blue" >
-        
     </RelativeLayout>
    
     <TextView 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="这个是收藏的界面"/>
+        android:text="以下是用户的收藏"/>
+    
+   <ImageView 
+        android:layout_width="fill_parent"
+        android:layout_height="5px"
+		android:background="#ffffff"
+        />
+   
+   <ListView 
+       android:id="@+id/collectionlist"
+       android:layout_width="fill_parent"
+       android:layout_height="fill_parent"
+	   android:divider="#FFffff"
+       android:dividerHeight="7px">
+       
+   </ListView>
 
 </LinearLayout>

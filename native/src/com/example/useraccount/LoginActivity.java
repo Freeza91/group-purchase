@@ -120,12 +120,6 @@ public class LoginActivity extends Activity {
 			}
 			progressDialog.dismiss();
 		}
-
-		@Override
-		protected void onProgressUpdate(Integer... values) {
-			// TODO Auto-generated method stub
-			super.onProgressUpdate(values);
-		}
 		
 	}
 	

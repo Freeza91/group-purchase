@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.collectionList.CollectionList;
 import com.example.get_data.HttpRequest;
 import com.example.get_data.NetWork;
 import com.example.get_data.ResponedData;
@@ -24,11 +25,16 @@ public class User extends Activity{
 	private String token;
     private ProgressDialog progressDialog;
     private boolean flag = true;
+    private Button collection;
+    
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user);
+		
+		collection = (Button) findViewById(R.id.collection);
+		init_collection();
 		
 		Tologin = (Button) findViewById(R.id.Tologin);
 		Tologin.setOnClickListener(new OnClickListener() {
@@ -51,6 +57,27 @@ public class User extends Activity{
 		initLoadData();
 	}
 	
+	private void init_collection(){
+		SharedPreferences sp = getSharedPreferences("collection", MODE_APPEND);
+		int size = sp.getInt("size", 0);
+		if(size <= 0){
+			collection.setEnabled(false);
+			collection.setText("收藏夹---" + "数量为：" + 0);
+
+		}else{
+			collection.setEnabled(true);
+			collection.setText("收藏夹---" + "数量为：" + size);
+			collection.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					Intent i =  new Intent(User.this, CollectionList.class);
+					startActivity(i);
+				}
+			});
+		}
+	}
 	private void initLoadData(){
 		SharedPreferences sp = getSharedPreferences("token", MODE_PRIVATE);
 		if(sp == null || sp.getString("token", "123").equals("123")){

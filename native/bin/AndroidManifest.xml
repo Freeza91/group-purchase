@@ -64,12 +64,11 @@
             android:name="com.example.group_purchase.IndexTable"
             android:label="@string/title_activity_index_table"
             android:theme="@android:style/Theme.Light.NoTitleBar"
-            android:uiOptions="splitActionBarWhenNarrow" >
-                        			<intent-filter>
+            android:uiOptions="splitActionBarWhenNarrow" >             
+            <intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
-            
         </activity>
         <activity
             android:name="com.example.group_purchase.ListviewActivity"
@@ -79,7 +78,7 @@
             android:name="com.example.collectionList.CollectionList"
             android:label="collectionLIst"
             android:theme="@android:style/Theme.Light.NoTitleBar"
-             >
+             >            
         </activity>
         <activity
             android:name="com.example.shopsandgoodsList.GoodsList"

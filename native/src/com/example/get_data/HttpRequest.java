@@ -29,7 +29,7 @@ import android.util.Log;
 
 public class HttpRequest {
 	
-	final String baseurl = "http://10.12.91.164:3000";
+	final String baseurl = DataStatus.remote_address;
 	
 	private HashMap<String, String>map = new HashMap<String, String>();
 	private List<NameValuePair> pairList = new ArrayList<NameValuePair>();

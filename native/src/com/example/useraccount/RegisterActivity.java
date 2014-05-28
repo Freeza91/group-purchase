@@ -70,7 +70,7 @@ public class RegisterActivity extends Activity {
 			super.onPreExecute();
 			progressDialog = new ProgressDialog(RegisterActivity.this);
 		    progressDialog.setTitle("提示信息");
-	        progressDialog.setMessage("正在更新用户信息，请稍后......");
+	        progressDialog.setMessage("正在注册，请稍后......");
 	        //设置setCancelable(false); 表示我们不能取消这个弹出框，等下载完成之后再让弹出框消失
 	        progressDialog.setCancelable(false);
 	        //设置ProgressDialog样式为圆圈的形式

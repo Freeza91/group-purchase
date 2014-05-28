@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >    
+   
+    <TextView 
+        android:id="@+id/collection_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="以下是用户的收藏"/>
+    
+   <ImageView 
+        android:layout_width="fill_parent"
+        android:layout_height="5px"
+		android:background="#ffffff"
+        />
+
+   
+    <TextView 
+        android:id="@+id/collection_add"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="以下是用户的收藏"/>
+    
+   <ImageView 
+        android:layout_width="fill_parent"
+        android:layout_height="5px"
+		android:background="#ffffff"
+        />
+   
+   
+    <TextView 
+        android:id="@+id/collection_profile"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="以下是用户的收藏"/>
+    
+   <ImageView 
+        android:layout_width="fill_parent"
+        android:layout_height="5px"
+		android:background="#ffffff"
+        />
+</LinearLayout>

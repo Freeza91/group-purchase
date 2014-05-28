@@ -20,4 +20,16 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="登录" />
+    
+   <ImageView 
+        android:layout_width="fill_parent"
+        android:layout_height="5px"
+		android:background="#ffffff"
+        />    
+    
+    <Button
+        android:id="@+id/collection"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="收藏夹" />
 </LinearLayout>
