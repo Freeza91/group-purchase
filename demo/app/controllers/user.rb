@@ -5,15 +5,20 @@ require 'securerandom'
 post :create do
 
   token = SecureRandom.uuid
-  username = params[:username]
+  nickname = params[:username]
   password = params[:password]
   tel = params[:tel]
-  p username, password, tel
-  user = User.create(:username => username, :password => password, :tel => tel, :token => token)
-
   reply = {}
-  reply['message'] = 'success'
-  reply['token'] = token
+
+  p nickname, password, tel
+  user = User.create(:nickname => nickname, :password => password, 
+                     :tel => tel, :token => token, :integration => 0)
+  if user and !user.nil?
+    reply['message'] = 'success'
+    reply['token'] = token
+  else 
+    reply['message'] = 'failed'
+  end
   reply.to_json
   
 end
@@ -43,7 +48,7 @@ put '/update/username' do
   user = User.find_by(:token => token)
   if user 
     token = SecureRandom.uuid
-    user.update(:username => username, :token => token)
+    user.update(:nickname => username, :token => token)
     reply['message'] = 'success'
     reply['token'] =  token
     reply['username'] = username
@@ -72,13 +77,26 @@ put '/update/password' do
   reply.to_json
 end
 
+post "/buy" do 
+  token = params[:token]
+  integration = params[:integration].to_i
+  user = User.find_by(:token => token)
+  reply = {}
+  if user
+    user.update(:integration => integration)
+    reply['message'] = 'success'
+  else
+    reply['message'] = 'failed'
+  end
+  reply.to_json
+end
 post '/' do
   token = params[:token]
   user = User.find_by(:token => token)
   reply = {}
   if user 
     reply['message'] = 'success'
-    reply['username'] = user.username
+    reply['username'] = user.nickname
   else
     reply['message'] = 'failed'
   end

@@ -34,14 +34,17 @@ Demo::App.controllers :good do
   put :update do
     file = params[:filename][:tempfile]
     infor = params['good']
+    f = params[:filename][:filename].to_s.split('.').last
+    t = Time.at(Time.now).strftime "%y%m%d%H%M%S"
+    filename = t + @owner.tel + '.' + f 
     @good = @owner.shop.good
-    File.open( fileroot + @good.avatar, "wb") do |f|
+    File.open( fileroot + filename, "wb") do |f|
       f.write(file.read)
     end
     @good = @good.update(:name => infor['name'], :shop_id => @owner.shop.id,
                         :price => infor['price'], :profile => infor['profile'],
                         :note => infor['note'], :service => infor['service'],
-                        :avatar => infor['avatar'], :status => false,
+                        :avatar => filename, :status => false,
                         :integration => infor['integration'])
     if ! @good.nil?
       redirect_to 'good'

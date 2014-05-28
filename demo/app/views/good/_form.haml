@@ -1,26 +1,26 @@
 %fieldset.control-group
-  =f.text_field :name, :class => 'form-control input-small input-with-feedback center-input', :autofocus => true, :placeholder => 'shangpingmingzi', :value => @good.name
+  =f.text_field :name, :class => 'form-control input-small input-with-feedback center-input', :autofocus => true, :placeholder => '商品名字', :value => @good.name
   %p 
   .controls
-    =f.text_area :profile, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'profile',:value => @good.profile
+    =f.text_area :profile, :class => 'form-control input-large input-with-feedback center-input', :placeholder => '简介',:value => @good.profile
     %p
 
   .controls
-    =f.text_field :price, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'price', :value => @good.price
+    =f.text_field :price, :class => 'form-control input-large input-with-feedback center-input', :placeholder => '价格', :value => @good.price
     %p
 
   .controls
-    =f.text_field :integration, :class => "col-xs-1 input-large input-with-feedback ", :placeholder => 'jifen',:value => @good.integration
+    =f.text_field :integration, :class => "col-xs-2 input-large input-with-feedback ", :placeholder => '积分',:value => @good.integration
     %span.col-xs-1
-    =file_field_tag "filename", :class => "col-xs-10 input-large input-with-feedback"
+    =file_field_tag "filename", :class => "col-xs-9 input-large input-with-feedback"
     %p 
     &nbsp
 
   .controls
-    =f.text_area :service, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'fuwu', :value => @good.price
+    =f.text_area :service, :class => 'form-control input-large input-with-feedback center-input', :placeholder => '服务', :value => @good.price
     %p
 
-    =f.text_area :note, :class => 'form-control input-large input-with-feedback center-input', :placeholder => 'beizhu', :value => @good.note
+    =f.text_area :note, :class => 'form-control input-large input-with-feedback center-input', :placeholder => '备注', :value => @good.note
     %p
 
 .controls

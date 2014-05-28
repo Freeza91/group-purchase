@@ -3,55 +3,46 @@
   =f.label :shop_id, :class => 'control-label'
   .controls
     =f.text_field :shop_id, :class => 'form-control input-large input-with-feedback', :autofocus => true
-    %span.help-inline=error ? f.error_message_on(:shop_id, :class => 'text-error') : pat(:example)
 - error = @good.errors.include?(:price)
 %fieldset.control-group{:class => error ? 'has-error' : ''}
   =f.label :price, :class => 'control-label'
   .controls
     =f.text_field :price, :class => 'form-control input-large input-with-feedback'
-    %span.help-inline=error ? f.error_message_on(:price, :class => 'text-error') : pat(:example)
 - error = @good.errors.include?(:profile)
 %fieldset.control-group{:class => error ? 'has-error' : ''}
   =f.label :profile, :class => 'control-label'
   .controls
     =f.text_field :profile, :class => 'form-control input-large input-with-feedback'
-    %span.help-inline=error ? f.error_message_on(:profile, :class => 'text-error') : pat(:example)
 - error = @good.errors.include?(:note)
 %fieldset.control-group{:class => error ? 'has-error' : ''}
   =f.label :note, :class => 'control-label'
   .controls
     ~f.text_area :note, :class => 'form-control input-large input-with-feedback'
-    %span.help-inline=error ? f.error_message_on(:note, :class => 'text-error') : pat(:example)
 - error = @good.errors.include?(:service)
 %fieldset.control-group{:class => error ? 'has-error' : ''}
   =f.label :service, :class => 'control-label'
   .controls
     ~f.text_area :service, :class => 'form-control input-large input-with-feedback'
-    %span.help-inline=error ? f.error_message_on(:service, :class => 'text-error') : pat(:example)
 - error = @good.errors.include?(:avatar)
 %fieldset.control-group{:class => error ? 'has-error' : ''}
   =f.label :avatar, :class => 'control-label'
   .controls
     =f.text_field :avatar, :class => 'form-control input-large input-with-feedback'
-    %span.help-inline=error ? f.error_message_on(:avatar, :class => 'text-error') : pat(:example)
 - error = @good.errors.include?(:status)
 %fieldset.control-group{:class => error ? 'has-error' : ''}
   =f.label :status, :class => 'control-label'
   .controls
     =f.check_box :status, :class => 'form-control input-large input-with-feedback'
-    %span.help-inline=error ? f.error_message_on(:status, :class => 'text-error') : pat(:example)
 - error = @good.errors.include?(:integration)
 %fieldset.control-group{:class => error ? 'has-error' : ''}
   =f.label :integration, :class => 'control-label'
   .controls
     =f.text_field :integration, :class => 'form-control input-large input-with-feedback'
-    %span.help-inline=error ? f.error_message_on(:integration, :class => 'text-error') : pat(:example)
 - error = @good.errors.include?(:name)
 %fieldset.control-group{:class => error ? 'has-error' : ''}
   =f.label :name, :class => 'control-label'
   .controls
     =f.text_field :name, :class => 'form-control input-large input-with-feedback'
-    %span.help-inline=error ? f.error_message_on(:name, :class => 'text-error') : pat(:example)
 
 .form-actions
   =f.submit pat(:save), :class => 'btn btn-primary'

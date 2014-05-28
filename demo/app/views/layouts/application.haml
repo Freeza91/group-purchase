@@ -16,16 +16,16 @@
     .navbar.navbar-fixed-top
       .navbar-inner
         .container
-          =link_to 'Padrino', url(:shopowner, :index), :class => 'navbar-brand', :title => 'Padrino Admin'
+          =link_to '管理界面', url(:shopowner, :index), :class => 'navbar-brand', :title => '管理界面'
           %ul.nav.navbar-nav.pull-left
             %li{:class => "navbar-module" }
-              =link_to "dianmian", url(:shop, :index)
+              =link_to "店面", url(:shop, :index)
             %li{:class => "navbar-module" }
-              =link_to "shangping", url(:good, :index) 
+              =link_to "商品", url(:good, :index) 
           - if @owner and ! @owner.id.nil?
             %ul.nav.navbar-nav.pull-right
-              %li.navbar-edit-account=link_to "Infor", url(:shopowner, :edit, :id => @owner.id),:class => 'navbar-nav-link'
-              %li.navbar-logout=link_to :logout, url(:shopowner,:loginout), :method => 'get', :class => 'navbar-nav-form'
+              %li.navbar-edit-account=link_to "个人信息", url(:shopowner, :edit, :id => @owner.id),:class => 'navbar-nav-link'
+              %li.navbar-logout=link_to "登出", url(:shopowner,:loginout), :method => 'get', :class => 'navbar-nav-form'
   .container.main
     .main-wrapper
       ={:error => 'danger', :warning => 'warning', :success => 'success', :notice => 'info'}.map { |type, class_name| flash_tag(type, :class => "alert alert-#{class_name} fade in", :bootstrap => true) }.join.html_safe
