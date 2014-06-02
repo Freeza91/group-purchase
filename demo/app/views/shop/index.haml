@@ -5,7 +5,7 @@
     %table.table.table-striped.table-hover.table-condensed
       %tr
         %td 
-          = link_to "Add Good!!", url(:good, :index), :class => "btn btn-infor"
+          = link_to "Add Good!!", url(:good, :new), :class => "btn btn-infor"
         %td 
           = link_to "Modify your Shop infor", url(:shop, :edit, :id => @owner.id), :class => "btn btn-infor"
       %tr 

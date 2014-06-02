@@ -1,20 +1,13 @@
 package com.example.dataAdapter;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
-import android.sax.StartElementListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,13 +20,10 @@ import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.example.dataAdapter.DropDownDataAdapter2.ViewHolder2;
+import com.example.dataAdapter.CollectionDataAdapter.ViewHolder;
 import com.example.get_data.DataStatus;
 import com.example.group_purchase.IndexTable;
 import com.example.group_purchase.R;
-import com.example.shopsandgoodsList.GoodDetail;
-import com.example.shopsandgoodsList.GoodsList;
-import com.example.shopsandgoodsList.ShopsList;
 import com.example.view.MyGridView;
 
 public class DropDownDataAdapter1 extends BaseAdapter{
@@ -69,7 +59,16 @@ public class DropDownDataAdapter1 extends BaseAdapter{
 	@Override
 	public long getItemId(int position) {
 		// TODO Auto-generated method stub
-		return position;
+		if(position > 0){
+			return 1;
+		}
+		return 0;
+	}
+
+	@Override
+	public int getViewTypeCount() {
+		// TODO Auto-generated method stub
+		return 2;
 	}
 
 	@Override
@@ -79,54 +78,39 @@ public class DropDownDataAdapter1 extends BaseAdapter{
 		type = position;
 
 		if (type == 0){
-			convertView = mInflater.inflate(R.layout.dropdown_pre1, null);
-			view1 = new ViewHolder1();
-			view1.gridView = (MyGridView)convertView.findViewById(R.id.grid);
-			view1.tv = (TextView) convertView.findViewById(R.id.guess);
-			convertView.setTag(view1);
+			if(convertView == null || !(convertView.getTag() instanceof ViewHolder1)){
+				convertView = mInflater.inflate(R.layout.dropdown_pre1, null);
+				view1 = new ViewHolder1();
+				view1.gridView = (MyGridView)convertView.findViewById(R.id.grid);
+				view1.tv = (TextView) convertView.findViewById(R.id.guess);
+				convertView.setTag(view1);
+			}else{
+				view1 = (ViewHolder1) convertView.getTag();
+			}
 			view1.gridView.setSelector(R.drawable.grid_content);
 			setGridView(view1.gridView);
 			view1.tv.setText("猜你喜欢");
 		}else{
-			convertView = mInflater.inflate(R.layout.dropdown_content1, null);
-			view2 = new ViewHolder2();
-			view2.name = (TextView) convertView.findViewById(R.id.good_name);
-			view2.profile= (TextView) convertView.findViewById(R.id.good_profile);
-			view2.price = (TextView) convertView.findViewById(R.id.good_price);
-			view2.avatar = (ImageView) convertView.findViewById(R.id.good_avatar);
+			if(convertView == null || !(convertView.getTag() instanceof ViewHolder2 )){
+				convertView = mInflater.inflate(R.layout.dropdown_content1, null);
+				view2 = new ViewHolder2();
+				view2.name = (TextView) convertView.findViewById(R.id.good_name);
+				view2.profile= (TextView) convertView.findViewById(R.id.good_profile);
+				view2.price = (TextView) convertView.findViewById(R.id.good_price);
+				view2.avatar = (ImageView) convertView.findViewById(R.id.good_avatar);
+				convertView.setTag(view2);
+			}else{
+				view2 = (ViewHolder2) convertView.getTag();
+				view2.avatar.setImageResource(R.drawable.ic_launcher);
+
+			}
 			map = listdata.get(type);
-			view2.avatar.setContentDescription("url:" + map.get("url"));
-			Log.d("appTag", map.get("avatar").toString());
 
 			view2.name.setText("名字:" + map.get("name"));
 			view2.profile.setText("简介：" + map.get("profile"));
 			view2.price.setText("价格：" + map.get("price"));
-			convertView.setTag(view2);
-			
-			handler= new Handler(){
-
-				@Override
-				public void handleMessage(Message msg) {
-					// TODO Auto-generated method stub
-					Bitmap bmp=(Bitmap)msg.obj;  
-					view2.avatar.setImageBitmap(bmp);;
-				}
-				
-			};
-
-		
-		  new Thread(new Runnable() {  
-			  
-              @Override  
-              public void run() {  
-                  // TODO Auto-generated method stub  
-                  Bitmap bmp = getURLimage(url + map.get("avatar").toString());  
-                  Message msg = new Message();  
-                  msg.what = type;  
-                  msg.obj = bmp;  
-                  handler.sendMessage(msg);  
-              }  
-          }).start();  
+			view2.avatar.setTag(url + map.get("avatar").toString());
+			new LoadImage(view2.avatar, url + map.get("avatar").toString()).load();;
 		}
 		return convertView;
 	}
@@ -140,25 +124,6 @@ public class DropDownDataAdapter1 extends BaseAdapter{
 		ImageView avatar;
 		TextView name, profile, price;
 	}
-	
-    private Bitmap getURLimage(String image_url) {  
-        Bitmap bmp = null;  
-        try {  
-            URL myurl = new URL(image_url);  
-            // 获得连接  
-            HttpURLConnection conn = (HttpURLConnection) myurl.openConnection();  
-            conn.setConnectTimeout(6000);//设置超时  
-            conn.setDoInput(true);  
-            conn.setUseCaches(true);//缓存  
-            conn.connect();  
-            InputStream is = conn.getInputStream();//获得图片的数据流  
-            bmp = BitmapFactory.decodeStream(is);  
-            is.close();  
-        } catch (Exception e) {  
-            e.printStackTrace();  
-        }  
-        return bmp;  
-    } 
 	
 	private void setGridView(GridView grid){
 		ArrayList<HashMap<String, Object>> gridItem = new ArrayList<HashMap<String,Object>>();

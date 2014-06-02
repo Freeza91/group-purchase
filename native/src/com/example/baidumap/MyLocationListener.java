@@ -29,7 +29,6 @@ public class MyLocationListener implements BDLocationListener {
 		sb.append(location.getLongitude());
 		sb.append("\nradius : ");
 		sb.append(location.getRadius());
-		Log.d("getLocType()", location.getLocType()+" ");
 		MapData.ddr = location.getAddrStr();
 		MapData.district = location.getDistrict();
 		MapData.street = location.getStreet();
@@ -39,8 +38,6 @@ public class MyLocationListener implements BDLocationListener {
 			sb.append("\ndistrict" + location.getDistrict());
 			sb.append("\ndistree" + location.getStreet());
 		}
-		Log.d("LocSDK3", sb.toString());
-
 	}
 
 	@Override

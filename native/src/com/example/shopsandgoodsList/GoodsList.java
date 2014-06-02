@@ -43,7 +43,7 @@ public class GoodsList extends Activity {
 	
 	private void AddContent(){
 		dp.setOnBottomStyle(true);
-		dp.setAutoLoadOnBottom(true);
+		dp.setAutoLoadOnBottom(false);
 		
 		DataStatus.current_good = 0;
 		listItem = new LinkedList<HashMap<String, String>>();
@@ -126,12 +126,13 @@ public class GoodsList extends Activity {
 						dp.setFooterDefaultText("没有更多了！");
 					}
 	        		dpAdatper.notifyDataSetChanged();
+					dp.onDropDownComplete();
+					dp.setFooterDefaultText("");
 				}else{
 					Toast.makeText(getApplicationContext(), "链接超时", Toast.LENGTH_SHORT).show();
 					dp.setFooterDefaultText("请重试！！");
 				}
-				dp.onDropDownComplete();
-				dp.setFooterDefaultText("");
+
 			}
 			//上提
 			else{

@@ -18,6 +18,7 @@ Demo::App.controllers :good do
     File.open(fileroot + filename, "wb") do |f|
       f.write(file.read)
     end
+    infor = params['good']
     p infor
     @good = Good.create(:name => infor['name'], :shop_id => @owner.shop.id,
                         :price => infor['price'], :profile => infor['profile'],

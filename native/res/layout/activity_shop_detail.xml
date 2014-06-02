@@ -20,8 +20,8 @@
     
    <LinearLayout 
        android:layout_width="match_parent"
-       android:layout_height="fill_parent"
-       android:layout_weight="10"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="5dp"
        android:orientation="vertical"
        >
        <ImageView 
@@ -33,37 +33,42 @@
       	<LinearLayout 
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
+           android:layout_marginTop="5dp"
            android:orientation="horizontal">
            <TextView 
 	           android:id="@+id/shop_detail_name"
-	           android:layout_width="wrap_content"
+	           android:layout_width="fill_parent"
 	           android:layout_height="fill_parent"
+	           android:layout_weight="1"
 	           android:text="店名"
-           />
-           	<TextView 
-	           android:id="@+id/shop_detail_address"
-	           android:layout_width="wrap_content"
+           />            
+           <TextView 
+	           android:id="@+id/shop_detail_tel"
+	           android:layout_width="fill_parent"
 	           android:layout_height="fill_parent"
-	           android:text="地址"
-           	/>
-
+	           android:layout_weight="1"
+	           android:text="电话"
+           />
        </LinearLayout>
-       
+		<ImageView 
+           android:layout_width="fill_parent"
+           android:layout_height="5px"
+			android:background="#ffffff"
+        />
        <TextView 
-           android:id="@+id/shop_detail_tel"
+           android:id="@+id/shop_detail_address"
            android:layout_width="fill_parent"
            android:layout_height="wrap_content"
-           android:text="电话"
+           android:text="地址"
            />
-       	<TextView 
-           android:id="@+id/shop_detail_profile"
+        <ImageView 
            android:layout_width="fill_parent"
-           android:layout_height="wrap_content"
-           android:text="简介"
-           />
+           android:layout_height="2px"
+			android:background="#ffffff"
+        />
        	<LinearLayout 
        	    android:layout_width="fill_parent"
-       	    android:layout_height="wrap_content"
+       	    android:layout_height="30dp"
        	    android:orientation="horizontal">
 			<TextView 
 	           android:id="@+id/shop_detail_category"
@@ -71,15 +76,35 @@
 	           android:layout_height="fill_parent"
 	           android:text="类别"
 	           />
-			<TextView 
-	           android:id="@+id/shop_detail_rating"
-	           android:layout_width="wrap_content"
-	           android:layout_height="fill_parent"
-	           android:text="评分"
+		<ImageView 
+           android:layout_width="5px"
+           android:layout_height="fill_parent"
+			android:background="#ffffff"
+        />
+		<TextView 
+		    android:layout_width="wrap_content"
+		    android:layout_height="fill_parent"
+		    android:layout_marginLeft="100dp"
+		    android:text="评级"/>
+		<RatingBar
+           android:id="@+id/shop_detail_rating"
+           android:layout_width="wrap_content"
+           android:layout_height="28dp"
+           style="?android:attr/ratingBarStyleSmall" 
+		   android:numStars="5"
+		   android:stepSize="0.5"
+		   android:layout_marginLeft="5dp"
+           android:text="评分"
 	           />
 		</LinearLayout>
+		
+       	<TextView 
+	        android:id="@+id/shop_detail_profile"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="简介"
+        />
    </LinearLayout>
-   
    <Button 
        android:id="@+id/nav"
        android:layout_width="fill_parent"

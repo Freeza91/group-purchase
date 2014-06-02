@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +28,8 @@ import com.example.get_data.ResponedData;
 import com.example.group_purchase.R;
 
 public class ShopDetail extends Activity {
-	private TextView name, tel, profile, category, rating;
+	private TextView name, tel, profile, category, address;
+	private RatingBar rating;
 	private ImageView avatar;
 	private Button nav, collection;
 	HashMap<String, String> map = null;
@@ -46,10 +48,11 @@ public class ShopDetail extends Activity {
 
 	private void init_ui() {
 		name = (TextView) findViewById(R.id.shop_detail_name);
+		address = (TextView) findViewById(R.id.shop_detail_address);
 		tel = (TextView) findViewById(R.id.shop_detail_tel);
 		profile = (TextView) findViewById(R.id.shop_detail_profile);
 		category = (TextView) findViewById(R.id.shop_detail_category);
-		rating = (TextView) findViewById(R.id.shop_detail_rating);
+		rating = (RatingBar) findViewById(R.id.shop_detail_rating);
 
 		avatar = (ImageView) findViewById(R.id.shop_detail_avatar);
 
@@ -60,13 +63,12 @@ public class ShopDetail extends Activity {
 	private void addContent() {
 		Bundle b = getIntent().getExtras();
 		map = ResponedData.list_shop.get(b.getInt("num") - 1);
-		Toast.makeText(getApplicationContext(), b.getInt("num") + "",
-				Toast.LENGTH_SHORT).show();
-		name.setText(map.get("name"));
-		tel.setText(map.get("tel"));
-		profile.setText(map.get("profile"));
-		category.setText(map.get("category"));
-		rating.setText(map.get("rating"));
+		name.setText("店面: " + map.get("name"));
+		tel.setText("电话: " + map.get("shop_tel"));
+		profile.setText("简介： \n " + map.get("profile"));
+		category.setText("类别： " + map.get("category"));
+		rating.setRating(Float.parseFloat(map.get("rating")));
+		address.setText("地址: " + map.get("address"));
 
 		collection.setOnClickListener(new OnClickListener() {
 
@@ -108,14 +110,14 @@ public class ShopDetail extends Activity {
 				Intent intent = new Intent(ShopDetail.this, MapPlan.class);
 				Bundle b = new Bundle();
 				b.putDouble("lat",
-						Double.parseDouble(map.get("lat").toString()));
+						Double.parseDouble(map.get("lat")));
 				b.putDouble("lon",
-						Double.parseDouble(map.get("lon").toString()));
+						Double.parseDouble(map.get("lon")));
 
 				b.putString("to", map.get("address").toString());
 				b.putString("name", map.get("name").toString());
 
-				Log.d("appTag", map.get("lat").toString());
+				Log.d("appTag", "details" + map.get("address").toString());
 				intent.putExtras(b);
 				ShopDetail.this.startActivity(intent);
 			}

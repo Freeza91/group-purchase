@@ -9,7 +9,7 @@ module Demo
 
     get 'goodlist/:id' do
       id = params[:id]
-      num = 8
+      num = 20
       ofset = id.to_i * num.to_i
       goodlist = Good.limit(num).offset(ofset)
       reply = {}
@@ -25,12 +25,14 @@ module Demo
     get 'shoplist/:category/:id' do 
       id = params[:id]
       category = params[:category]
-      num = 8
+      num = 20
       ofset = num.to_i * id.to_i
-
-      categorys = deal category
-      p categorys
-      shoplist = Shop.where(:category =>  categorys).limit(num).offset(ofset)
+      if category == '全部分类'
+        shoplist = Shop.all
+      else 
+        categorys = deal category
+        shoplist = Shop.where(:category =>  categorys).limit(num).offset(ofset)
+      end
       reply = {}
       i = 0
       reply['message'] = 'shop'

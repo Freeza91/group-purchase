@@ -53,7 +53,7 @@ public class ShopsList extends Activity {
 		dp.setDropDownStyle(false);
 		dp.setHeaderDefaultText("下拉刷新");
 		dp.setOnBottomStyle(true);
-		dp.setAutoLoadOnBottom(true);
+		dp.setAutoLoadOnBottom(false);
 		dp.setFooterDefaultText("努力加载中。。。。");
 		DataStatus.current_shop = 0;
 
@@ -95,6 +95,8 @@ public class ShopsList extends Activity {
 	}
 	
 	private void AddDpListener(){
+		dp.setDropDownStyle(false);
+		dp.setHeaderDefaultText("下拉刷新");
 		dp.setOnBottomStyle(true);
 		dp.setAutoLoadOnBottom(true);
 		dp.setOnDropDownListener(new OnDropDownListener() {
@@ -113,7 +115,6 @@ public class ShopsList extends Activity {
             	new GetDataTask(false).execute();
             }
         });
-        
         dp.setOnItemClickListener(new DPOnItemClick());
  
 	}
@@ -214,23 +215,26 @@ public class ShopsList extends Activity {
 						listItem.add(map);
 					}
 					listItem.removeFirst();
-					if(len == 0 || len < 7 ){
+					if(len == 0 || len < 20){
 						Toast.makeText(getApplicationContext(), "当前没有更多信息", Toast.LENGTH_SHORT).show();
 						dp.setFooterDefaultText("");
-						dp.setAutoLoadOnBottom(false);
-						dp.setOnBottomStyle(false);
+		        		dpAdatper.notifyDataSetChanged();
+						dp.onDropDownComplete();
 					}
 					HashMap<String, String> loc = new HashMap<String, String>();
 					loc.put("location", MapData.ddr);
 					listItem.addFirst(loc);
+					dp.setAutoLoadOnBottom(false);
+//					dp.setOnBottomStyle(false);
 					
 				}else{
 					listItem.remove(0);
 					Toast.makeText(getApplicationContext(), "链接超时", Toast.LENGTH_SHORT).show();
 					dp.setFooterDefaultText("请重试！！");
+	        		dpAdatper.notifyDataSetChanged();
+					dp.onDropDownComplete();
 				}
-        		dpAdatper.notifyDataSetChanged();
-				dp.onDropDownComplete();
+
 			}
 			//上提
 			else{
@@ -241,11 +245,10 @@ public class ShopsList extends Activity {
 						HashMap<String, String> map = list.get(i);
 						listItem.add(map);
 					}
-	        		if(len == 0 || len < 7){
+	        		if(len == 0 || len < 20){
 						Toast.makeText(getApplicationContext(), "已经到最后一页了！", Toast.LENGTH_SHORT).show();
 						dp.setFooterDefaultText("没有更多了！");
-						dp.setAutoLoadOnBottom(false);
-						dp.setOnBottomStyle(false);
+						dp.onBottomComplete();
 
 	        		}
 	        		DataStatus.current_shop ++;
@@ -254,7 +257,6 @@ public class ShopsList extends Activity {
 				}else{
 					Toast.makeText(getApplicationContext(), "链接超时", Toast.LENGTH_SHORT).show();
 				}
-				dp.onBottomComplete();
 			}
 			super.onPostExecute(result);
 		}

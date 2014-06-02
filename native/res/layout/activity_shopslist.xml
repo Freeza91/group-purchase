@@ -43,13 +43,11 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="5px"
 			android:background="#ffffff"
-			
         />  
-
     
     <com.example.view.DropDown
         android:id="@+id/shops_refresh"	
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_width="fill_parent"
         android:divider="#FFffff"
         android:dividerHeight="7px"  

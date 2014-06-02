@@ -64,6 +64,7 @@ public class HttpRequest {
 		// TODO Auto-generated method stub
 		String url = baseurl + Params;
 		
+		Log.d("appTag", url);
 		// 生成请求对象
 		HttpClient httpClient = new DefaultHttpClient(params);
 		HttpGet get = new HttpGet(url);

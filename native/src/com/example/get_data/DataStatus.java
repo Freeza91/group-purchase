@@ -8,5 +8,5 @@ public class DataStatus {
 	public static int current_good = 0;
 	public static String add = "";
 	public static boolean collection_flag = false;
-	public static final String remote_address = "http://10.61.78.214:3000";
+	public static final String remote_address = "http://10.12.91.164:3000";
 }

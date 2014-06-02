@@ -64,14 +64,16 @@ public class GoodDetail extends Activity{
 	private void addContent(){
 		Bundle b = getIntent().getExtras();
 		map = ResponedData.list_good.get(b.getInt("num") - 1);
-		Toast.makeText(getApplicationContext(), b.getInt("num") + "", Toast.LENGTH_SHORT).show();
-		name.setText(map.get("name").toString());
-		price.setText(map.get("price").toString());
-		integration.setText(map.get("integration").toString());
-		profile.setText(map.get("profile").toString());
-		note.setText(map.get("note").toString());
-		service.setText(map.get("service").toString());
+		name.setText("商品名称: " + map.get("name").toString());
+		price.setText("商品价格： " + map.get("price").toString());
+		integration.setText("积分： " + map.get("integration").toString());
+		profile.setText("商品简介： \n" + map.get("profile").toString());
+		note.setText("备注： \n" + map.get("note").toString());
+		service.setText("服务： \n" + map.get("service").toString());
 
+		Toast.makeText(getApplicationContext(), map.get("name").toString(), Toast.LENGTH_SHORT).show();
+
+		
 		buy.setOnClickListener(new OnClickListener() {
 			
 			@Override

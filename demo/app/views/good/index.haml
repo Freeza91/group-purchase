@@ -4,33 +4,42 @@
   .tabs-content
     %table.table.table-striped.table-hover.table-condensed
       %tr
-        %td 
+        %td           
+          = link_to "Add Good", url(:good, :new), :class => "btn btn-infor"
         %td 
           = link_to "Modify your Good infor", url(:good, :edit, :id => @owner.id), :class => "btn btn-infor"
       %tr 
         %td
           %span
             %h2.col-md-offset-1
-              = @owner.shop.good.name
+              -if @owner.shop.good
+                = @owner.shop.good.name
         %td
           %span
             %p &nbsp
             %h4.col-md-offset-1
-              = @owner.shop.good.price
-              &nbsp&nbsp;
-              = @owner.shop.good.integration
+              -if @owner.shop.good
+                = @owner.shop.good.price
+                &nbsp&nbsp;
+                = @owner.shop.good.integration
       %tr
         %td 
-          = @owner.shop.profile
+          -if@owner.shop
+            = @owner.shop.profile
         %td 
-          = image_tag @owner.shop.good.avatar
+          -if @owner.shop.good
+            = image_tag @owner.shop.good.avatar
 
       %tr
         %td 
         %td
-          = @owner.shop.good.service
+          -if @owner.shop.good
+
+            = @owner.shop.good.service
 
       %tr
         %td
         %td
-          =@owner.shop.good.note
+          -if @owner.shop.good
+
+            =@owner.shop.good.note

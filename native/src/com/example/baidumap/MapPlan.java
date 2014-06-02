@@ -30,7 +30,7 @@ public class MapPlan extends Activity {
     private MyLocationOverlay myLocationOverlay;  
     
     private Button bus, walk, drive;
-    private TextView from, to, plan;
+    private TextView way, plan;
     private MapView map;
     private MKPlanNode start, end;
     private Handler handler;
@@ -61,8 +61,7 @@ public class MapPlan extends Activity {
 		walk = (Button) findViewById(R.id.walk);
 		drive = (Button) findViewById(R.id.drive);
 		
-		from = (TextView) findViewById(R.id.from);
-		to = (TextView) findViewById(R.id.to);
+		way = (TextView) findViewById(R.id.way);
 		plan = (TextView) findViewById(R.id.plan);
 		
 		map = (MapView) findViewById(R.id.bmap);
@@ -70,15 +69,13 @@ public class MapPlan extends Activity {
 		Bundle b = getIntent().getExtras();
 		if(b != null){
 			String name = b.getString("name");
-			String add = b.getString("address");
+			String add = b.getString("to");
 			Double lat_to = b.getDouble("lat");
 			Double lon_to = b.getDouble("lon");
 			lat_from = MapData.lat;
 			lon_from = MapData.lon;
 			
-			from.setText("起点： " + name + "---->" + add);
-			to.setText("终点： " + DataStatus.add);
-			Log.d("appTag", lat_from + "");
+			way.setText("起点： " + MapData.ddr + "-->" + name);
 
 			start_pt = new GeoPoint((int) (lat_from * 1E6), (int) (lon_from * 1E6));
 			end_pt = new GeoPoint((int) (lat_to * 1E6), (int) (lon_to * 1E6));
