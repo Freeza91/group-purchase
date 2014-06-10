@@ -115,14 +115,13 @@ public class GoodsList extends Activity {
 			//下拉
 			if(IsDropDown){
 				if(status == 1){
-					LinkedList<HashMap<String, String>> list = ResponedData.list_good;
+					LinkedList<HashMap<String, String>> list = new ResponedData(GoodsList.this).list_good;
 					int len = list.size();
 					for(int i=0; i<len; i++){
 						HashMap<String, String> map = list.get(i);
 						listItem.add(map);
 					}
 					if(len == 0 || len < 7){
-						Toast.makeText(getApplicationContext(), "当前没有更多信息", Toast.LENGTH_SHORT).show();
 						dp.setFooterDefaultText("没有更多了！");
 					}
 	        		dpAdatper.notifyDataSetChanged();

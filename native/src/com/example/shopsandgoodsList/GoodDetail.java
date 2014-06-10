@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -37,7 +38,8 @@ public class GoodDetail extends Activity{
     private ProgressDialog progressDialog;
     Handler handler;
     String url = DataStatus.remote_address + "/images/";
-
+	SharedPreferences sp;
+    int num;
     
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,9 +47,15 @@ public class GoodDetail extends Activity{
 		setContentView(R.layout.activity_good_detail);
 		
 		init_ui();
-		addContent();
 	}
 	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		addContent();
+	}
+
 	private void init_ui(){
 		name = (TextView) findViewById(R.id.good_detail_name);
 		price = (TextView) findViewById(R.id.good_detail_price);
@@ -63,15 +71,17 @@ public class GoodDetail extends Activity{
 	
 	private void addContent(){
 		Bundle b = getIntent().getExtras();
-		map = ResponedData.list_good.get(b.getInt("num") - 1);
-		name.setText("商品名称: " + map.get("name").toString());
-		price.setText("商品价格： " + map.get("price").toString());
-		integration.setText("积分： " + map.get("integration").toString());
-		profile.setText("商品简介： \n" + map.get("profile").toString());
-		note.setText("备注： \n" + map.get("note").toString());
-		service.setText("服务： \n" + map.get("service").toString());
+		sp = getSharedPreferences("listgood", Context.MODE_PRIVATE);
+		num = b.getInt("num");
+//		map = (new ResponedData()).list_good.get(b.getInt("num") - 1);
+		name.setText("商品名称: " + sp.getString("name" + num, null));
+		price.setText("商品价格： " + sp.getString("price" + num, null));
+		integration.setText("积分： " + sp.getString("integration" + num, null));
+		profile.setText("商品简介： \n" + sp.getString("profile" + num, null));
+		note.setText("备注： \n" + sp.getString("note" + num, null));
+		service.setText("服务： \n" + sp.getString("service" + num, null));
 
-		Toast.makeText(getApplicationContext(), map.get("name").toString(), Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), sp.getString("name" + num, null), Toast.LENGTH_SHORT).show();
 
 		
 		buy.setOnClickListener(new OnClickListener() {
@@ -105,8 +115,8 @@ public class GoodDetail extends Activity{
              @Override  
              public void run() {  
                  // TODO Auto-generated method stub  
-            	 Log.d("appTag", map.get("avatar").toString());
-                 Bitmap bmp = getURLimage(url + map.get("avatar").toString());  
+            	 Log.d("appTag", sp.getString("avatar" + num, null));
+                 Bitmap bmp = getURLimage(url + sp.getString("avatar" + num, null));  
                  Message msg = new Message();  
                  msg.obj = bmp;  
                  handler.sendMessage(msg);  

@@ -22,6 +22,6 @@ public class Welcome extends Activity{
 				startActivity(intent);
 				Welcome.this.finish();
 			}
-		}, 3000); 
+		}, 4000); 
 	}
 }

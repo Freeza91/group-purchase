@@ -81,7 +81,7 @@ public class ShopsList extends Activity {
 		dp.setAdapter(dpAdatper);
 
 	}
-				// TODO Auto
+	// TODO Auto
 	private void init_ui(){
 		left = (Button) findViewById(R.id.leftSpinner);
 		left.setBackgroundResource(android.R.drawable.btn_dropdown);
@@ -208,7 +208,7 @@ public class ShopsList extends Activity {
 			//下拉或者第一次载入
 			if(isDrop){
 				if(status == 1){
-					LinkedList<HashMap<String, String>> list = ResponedData.list_shop;
+					LinkedList<HashMap<String, String>> list = new ResponedData(ShopsList.this).list_shop;
 					int len = list.size();
 					for(int i=0; i<len; i++){
 						HashMap<String, String> map = list.get(i);

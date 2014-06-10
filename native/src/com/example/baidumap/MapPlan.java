@@ -38,6 +38,8 @@ public class MapPlan extends Activity {
     private GeoPoint start_pt, end_pt;
     Double lat_from, lon_from;
     
+    String back_category;
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -70,13 +72,14 @@ public class MapPlan extends Activity {
 		if(b != null){
 			String name = b.getString("name");
 			String add = b.getString("to");
+			back_category = b.getString("category");
 			Double lat_to = b.getDouble("lat");
 			Double lon_to = b.getDouble("lon");
-			lat_from = MapData.lat;
-			lon_from = MapData.lon;
+			MapData data = new MapData(MapPlan.this);
+			lat_from = data.read_lat();
+			lon_from = data.read_lon();
 			
-			way.setText("起点： " + MapData.ddr + "-->" + name);
-
+			way.setText("起点： " + data.read_ddr() + "-->" + name);
 			start_pt = new GeoPoint((int) (lat_from * 1E6), (int) (lon_from * 1E6));
 			end_pt = new GeoPoint((int) (lat_to * 1E6), (int) (lon_to * 1E6));
 		}
@@ -242,4 +245,13 @@ public class MapPlan extends Activity {
 		}
 		super.onResume();
 	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		DataStatus.category = back_category;
+	}
+	
+	
 }

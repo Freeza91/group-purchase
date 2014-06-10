@@ -1,5 +1,7 @@
 package com.example.baidumap;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.baidu.location.BDLocation;
@@ -7,16 +9,26 @@ import com.baidu.location.BDLocationListener;
 
 public class MyLocationListener implements BDLocationListener {
 
+	SharedPreferences sp;
+	SharedPreferences.Editor e;
+	Context c;
+	
+	public MyLocationListener(Context c){
+		this.c = c;
+		sp = c.getSharedPreferences("MapData", Context.MODE_PRIVATE);
+		e = sp.edit();
+	}
 	@Override
 	public void onReceiveLocation(BDLocation location) {
 		// TODO Auto-generated method stub
 		if (location == null)
 			return;
 		
-		MapData.error_code = location.getLocType();
-		MapData.lat = location.getLatitude();
-		MapData.lon = location.getLongitude();
-		MapData.radius = location.getRadius();
+		MapData data = new MapData(this.c);
+		data.error_code = location.getLocType();
+		data.lat = location.getLatitude();
+		data.lon = location.getLongitude();
+		data.radius = location.getRadius();
 		
 		StringBuffer sb = new StringBuffer(256);
 		sb.append("time : ");
@@ -29,9 +41,15 @@ public class MyLocationListener implements BDLocationListener {
 		sb.append(location.getLongitude());
 		sb.append("\nradius : ");
 		sb.append(location.getRadius());
-		MapData.ddr = location.getAddrStr();
-		MapData.district = location.getDistrict();
-		MapData.street = location.getStreet();
+		data.ddr = location.getAddrStr();
+		data.district = location.getDistrict();
+		data.street = location.getStreet();
+		Log.d("appTag", data.ddr);
+		if(data.ddr != null && data.ddr.length() > 0){
+			Log.d("appTag", "save start");
+			data.save();
+			
+		}
 		if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
 			sb.append("\naddr : ");
 			sb.append(location.getAddrStr());

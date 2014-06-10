@@ -4,11 +4,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 public class ResponedData {
 	public static HashMap<String, String> mapresponse = new HashMap<String, String>(); //用户登录使用; //用户登录使用
@@ -16,7 +16,15 @@ public class ResponedData {
 	public static LinkedList<HashMap<String, String>> list_shop;
 
 	public static int flagresponse = 1;
-	
+	private Context context;
+	public ResponedData(Context c){
+		this.context = c;
+		saveListShop();
+		saveListGood();
+	}
+	public ResponedData(){
+		
+	}
 	public boolean JsonParse(String data, String http) throws JSONException{
 		JSONObject jsonObject = null;
 		JSONObject o1 = null, o2 = null;
@@ -76,6 +84,53 @@ public class ResponedData {
 			}
 		}
 		return true;
+	}
+	
+	private void saveListShop(){
+		SharedPreferences sp = this.context.getSharedPreferences("listshop", Context.MODE_PRIVATE);
+		SharedPreferences.Editor e = sp.edit();
+		//之前已经写过一些数据
+		if(sp.getBoolean("iswrite", false) == true){
+			e.clear();
+			e.commit();
+		}
+		int len = list_shop.size();
+		for(int i=1; i<=len; i++){
+			HashMap<String, String> map = list_shop.get(i - 1);
+			e.putString("name" + i, map.get("name").toString());
+			e.putString("address" + i, map.get("address").toString());
+			e.putString("lat" + i, map.get("lat").toString());
+			e.putString("lon" + i, map.get("lon").toString());
+			e.putString("avatar" + i, map.get("avatar").toString());
+			e.putString("profile" + i, map.get("profile").toString());
+			e.putString("shop_tel" + i, map.get("shop_tel").toString());
+			e.putString("rating" + i, map.get("rating").toString());
+			e.putString("category" + i, map.get("category").toString());
+		}
+		e.putBoolean("iswrite", true);
+		e.commit();
+	}
+	private void saveListGood(){
+		SharedPreferences sp = this.context.getSharedPreferences("listgood", Context.MODE_PRIVATE);
+		SharedPreferences.Editor e = sp.edit();
+		//之前已经写过一些数据
+		if(sp.getBoolean("iswrite", false) == true){
+			e.clear();
+			e.commit();
+		}
+		int len = list_good.size();
+		for(int i=1; i<=len; i++){
+			HashMap<String, String> map = list_good.get(i - 1);
+			e.putString("name" + i, map.get("name").toString());
+			e.putString("profile" + i, map.get("profile").toString());
+			e.putString("price" + i, map.get("price").toString());
+			e.putString("avatar" + i, map.get("avatar").toString());
+			e.putString("integration" + i, map.get("integration").toString());
+			e.putString("service" + i, map.get("service").toString());
+			e.putString("note" + i, map.get("note").toString());
+		}
+		e.putBoolean("iswrite", true);
+		e.commit();
 	}
 	
 }

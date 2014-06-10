@@ -11,11 +11,12 @@ import com.baidu.location.LocationClientOption.LocationMode;
 public class MapLocation {
 	
 	private LocationClient mLocationClient = null;
-	private BDLocationListener myListener = new MyLocationListener();
+	private BDLocationListener myListener;
 //	private GeoPoint bit;
 	private Context c = null;
 	public MapLocation(Context c){
 		this.c = c;
+		myListener = new MyLocationListener(this.c);
 	}
 	
 	public boolean Loaction(){

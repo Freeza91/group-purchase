@@ -41,8 +41,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:icon="@drawable/logo"
+        android:label="anzhuo" >
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -59,16 +59,16 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Light.NoTitleBar"
              >
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
         </activity>
         <activity
             android:name="com.example.group_purchase.IndexTable"
             android:label="@string/title_activity_index_table"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             android:uiOptions="splitActionBarWhenNarrow" >             
-            <intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
         </activity>
         <activity
             android:name="com.example.group_purchase.ListviewActivity"

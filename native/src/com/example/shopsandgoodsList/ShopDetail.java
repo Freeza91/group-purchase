@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -36,6 +37,9 @@ public class ShopDetail extends Activity {
 	private int size = 0;
 	Handler handler;
 	String url = DataStatus.remote_address + "/images/";
+	private SharedPreferences sp;
+	private SharedPreferences.Editor e;
+	int num;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -43,8 +47,18 @@ public class ShopDetail extends Activity {
 		setContentView(R.layout.activity_shop_detail);
 
 		init_ui();
+	}
+	
+	
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
 		addContent();
 	}
+
+
 
 	private void init_ui() {
 		name = (TextView) findViewById(R.id.shop_detail_name);
@@ -62,13 +76,16 @@ public class ShopDetail extends Activity {
 
 	private void addContent() {
 		Bundle b = getIntent().getExtras();
-		map = ResponedData.list_shop.get(b.getInt("num") - 1);
-		name.setText("店面: " + map.get("name"));
-		tel.setText("电话: " + map.get("shop_tel"));
-		profile.setText("简介： \n " + map.get("profile"));
-		category.setText("类别： " + map.get("category"));
-		rating.setRating(Float.parseFloat(map.get("rating")));
-		address.setText("地址: " + map.get("address"));
+		num = b.getInt("num");
+		sp = getSharedPreferences("listshop", Context.MODE_PRIVATE);
+		
+//		map = (new ResponedData()).list_shop.get(b.getInt("num") - 1);
+		name.setText("店面: " + sp.getString("name" + num, null));
+		tel.setText("电话: " + sp.getString("shop_tel" + num, null));
+		profile.setText("简介： \n " + sp.getString("profile" + num, null));
+		category.setText("类别： " + sp.getString("category" + num, null));
+		rating.setRating(Float.parseFloat(sp.getString("rating" + num, "0")));
+		address.setText("地址: " + sp.getString("address" + num, null));
 
 		collection.setOnClickListener(new OnClickListener() {
 
@@ -110,14 +127,15 @@ public class ShopDetail extends Activity {
 				Intent intent = new Intent(ShopDetail.this, MapPlan.class);
 				Bundle b = new Bundle();
 				b.putDouble("lat",
-						Double.parseDouble(map.get("lat")));
+						Double.parseDouble(sp.getString("lat" + num, "0")));
 				b.putDouble("lon",
-						Double.parseDouble(map.get("lon")));
+						Double.parseDouble(sp.getString("lon" + num, "0")));
 
-				b.putString("to", map.get("address").toString());
-				b.putString("name", map.get("name").toString());
+				b.putString("to", sp.getString("address" + num, null));
+				b.putString("name", sp.getString("name"+ num, null));
+				b.putSerializable("category", sp.getString("category" + num, null));
 
-				Log.d("appTag", "details" + map.get("address").toString());
+				Log.d("appTag", "details" + sp.getString("address", null));
 				intent.putExtras(b);
 				ShopDetail.this.startActivity(intent);
 			}
@@ -138,7 +156,7 @@ public class ShopDetail extends Activity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				Bitmap bmp = getURLimage(url + map.get("avatar").toString());
+				Bitmap bmp = getURLimage(url + sp.getString("avatar" + num, null));
 				Message msg = new Message();
 				msg.obj = bmp;
 				handler.sendMessage(msg);

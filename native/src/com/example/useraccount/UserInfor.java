@@ -124,4 +124,9 @@ public class UserInfor extends Activity {
 		e.commit();
 	}
 
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+	}
+
 }
