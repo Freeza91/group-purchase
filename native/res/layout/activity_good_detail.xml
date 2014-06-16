@@ -31,7 +31,7 @@
            android:id="@+id/good_detail_avatar"
            android:layout_width="match_parent"
            android:layout_height="300px"
-           android:src="@drawable/ic_launcher"
+           android:src="@drawable/ic_lanch"
            />
        <LinearLayout 
            android:layout_width="match_parent"

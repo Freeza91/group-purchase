@@ -99,9 +99,11 @@ public class DropDownDataAdapter1 extends BaseAdapter{
 				view2.price = (TextView) convertView.findViewById(R.id.good_price);
 				view2.avatar = (ImageView) convertView.findViewById(R.id.good_avatar);
 				convertView.setTag(view2);
+				view2.avatar.setImageResource(R.drawable.ic_lanch);
+
 			}else{
 				view2 = (ViewHolder2) convertView.getTag();
-				view2.avatar.setImageResource(R.drawable.ic_launcher);
+				view2.avatar.setImageResource(R.drawable.ic_lanch);
 
 			}
 			map = listdata.get(type);
